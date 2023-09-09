@@ -102,7 +102,7 @@
             <!-- Chat Messages -->
         </div>
         <div id="messageInputContainer">
-            <input type="text" id="messageInput" placeholder="Type your message...">
+            <input type="text" id="messageInput" placeholder="Type mer message...">
             <button id="sendMessageButton">Send</button>
         </div>
     </div>
@@ -137,22 +137,22 @@
             // Clear the input field
             messageInput.value = '';
 
-            // Display the user's message in the chat with avatar "You"
-            addMessageWithAvatar(messageText, 'You');
+            // Display the user's message in the chat with avatar "me"
+            addMessageWithAvatar(messageText, 'me');
 
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 // Get a random auto-reply message
                 const autoReplyMessages = [
-                    "Auto-reply: I'm not sure what you mean.",
-                    "Auto-reply: Can you clarify that?",
-                    "Auto-reply: It's a bit confusing.",
+                    "I'm not sure what me mean.",
+                    "Can me clarify that?",
+                    "It's a bit confusing.",
                 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat with avatar "Friend"
-                addMessageWithAvatar(randomAutoReply, 'Friend');
+                // Display the auto-reply in the chat with avatar "A"
+                addMessageWithAvatar(randomAutoReply, 'A');
             }, 1000); // Simulate a delay of 1 second
         });
     </script>
