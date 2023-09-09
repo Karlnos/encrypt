@@ -22,96 +22,196 @@
     </div>
 
     <script>
-        function encryptText(text) {
+        function textToEmoji(text) {
             const emojiMapping = {
                 'A': '😀',
                 'B': '😁',
                 'C': '😂',
                 'D': '😃',
                 'E': '😄',
-                'F': '😅',
-                'G': '😆',
-                'H': '😇',
-                'I': '😈',
-                'J': '😉',
-                'K': '😊',
-                'L': '😋',
-                'M': '😌',
-                'N': '😍',
-                'O': '😎',
-                'P': '😏',
-                'Q': '😐',
-                'R': '😑',
-                'S': '😒',
-                'T': '😓',
-                'U': '😔',
-                'V': '😕',
-                'W': '😖',
-                'X': '😗',
-                'Y': '😘',
-                'Z': '😙',
-                '1': '💄',
-                '2': '💋',
-                '3': '👄',
-                '4': '😀',
-                '5': '😁',
-                '6': '😂',
-                '7': '😃',
-                '8': '😄',
-                '9': '😅',
-                '0': '😆',
-                ' ': '🫠', // Use a special emoji for space
+                // Add more mappings for other characters, numbers, and symbols
             };
 
-            let emojiEncryptedText = '';
+            let emojiText = '';
 
             for (let i = 0; i < text.length; i++) {
                 const char = text.charAt(i).toUpperCase();
                 const emoji = emojiMapping[char] || ' '; // Use a space if character is not mapped
-                emojiEncryptedText += emoji;
+                emojiText += emoji;
             }
 
-            return emojiEncryptedText;
+            return emojiText;
         }
 
-        function decryptText(emojiEncryptedText) {
+        function emojiToEmoji(text) {
             const emojiMapping = {
-                '😀': 'A',
-                '😁': 'B',
-                '😂': 'C',
-                '😃': 'D',
-                '😄': 'E',
-                '😅': 'F',
-                '😆': 'G',
-                '😇': 'H',
-                '😈': 'I',
-                '😉': 'J',
-                '😊': 'K',
-                '😋': 'L',
-                '😌': 'M',
-                '😍': 'N',
-                '😎': 'O',
-                '😏': 'P',
-                '😐': 'Q',
-                '😑': 'R',
-                '😒': 'S',
-                '😓': 'T',
-                '😔': 'U',
-                '😕': 'V',
-                '😖': 'W',
-                '😗': 'X',
-                '😘': 'Y',
-                '😙': 'Z',
-                '💄': '1',
-                '💋': '2',
-                '👄': '3',
-                '🫠': ' ', // Space emoji
-            };
+    'A': '😀',
+    'B': '😁',
+    'C': '😂',
+    'D': '😃',
+    'E': '😄',
+    'F': '💄',
+    'G': '💋',
+    'H': '👄',
+    'I': '😀',
+    'J': '😃',
+    'K': '😄',
+    'L': '😁',
+    'M': '😆',
+    'N': '🥹',
+    'O': '😅',
+    'P': '😂',
+    'Q': '🤣',
+    'R': '😍',
+    'S': '😌',
+    'T': '😉',
+    'U': '🙃',
+    'V': '🙂',
+    'W': '😇',
+    'X': '😊',
+    'Y': '☺️',
+    'Z': '🥲',
+    '1': '🥰',
+    '2': '😘',
+    '3': '😗',
+    '4': '😙',
+    '5': '😚',
+    '6': '😋',
+    '7': '😛',
+    '8': '😝',
+    '9': '😜',
+    '0': '😏',
+    '!': '🥳',
+    '@': '🤩',
+    '#': '🥸',
+    '$': '😎',
+    '%': '🤓',
+    '^': '🧐',
+    '&': '🤨',
+    '*': '🤪',
+    '(': '😒',
+    ')': '😞',
+    '-': '😔',
+    '_': '😟',
+    '+': '😕',
+    '{': '🙁',
+    '}': '☹️',
+    '|': '😣',
+    ':': '😖',
+    '"': '🤬',
+    '<': '😡',
+    '>': '😠',
+    '?': '😤',
+    '`': '😭',
+    '/': '😢',
+    ';': '🥺',
+    "'": '😩',
+    ',': '😫',
+    '.': '🤯',
+    '~': '😳',
+    '[': '🥵',
+    ']': '🥶',
+    '\\': '😶‍🌫️',
+    ';': '😱',
+    "'": '😨',
+    ',': '😰',
+    '.': '😥',
+    '/': '🫠',
+    ' ': '🤫',
+};
 
+            let encryptedText = '';
+
+            for (let i = 0; i < text.length; i++) {
+                const emoji = text.charAt(i);
+                const newEmoji = emojiMapping[emoji] || ' '; // Use a space if emoji is not mapped
+                encryptedText += newEmoji;
+            }
+
+            return encryptedText;
+        }
+
+        function decryptEmojiToEmoji(text) {
+            const emojiMapping = {
+    'A': '😀',
+    'B': '😁',
+    'C': '😂',
+    'D': '😃',
+    'E': '😄',
+    'F': '💄',
+    'G': '💋',
+    'H': '👄',
+    'I': '😀',
+    'J': '😃',
+    'K': '😄',
+    'L': '😁',
+    'M': '😆',
+    'N': '🥹',
+    'O': '😅',
+    'P': '😂',
+    'Q': '🤣',
+    'R': '😍',
+    'S': '😌',
+    'T': '😉',
+    'U': '🙃',
+    'V': '🙂',
+    'W': '😇',
+    'X': '😊',
+    'Y': '☺️',
+    'Z': '🥲',
+    '1': '🥰',
+    '2': '😘',
+    '3': '😗',
+    '4': '😙',
+    '5': '😚',
+    '6': '😋',
+    '7': '😛',
+    '8': '😝',
+    '9': '😜',
+    '0': '😏',
+    '!': '🥳',
+    '@': '🤩',
+    '#': '🥸',
+    '$': '😎',
+    '%': '🤓',
+    '^': '🧐',
+    '&': '🤨',
+    '*': '🤪',
+    '(': '😒',
+    ')': '😞',
+    '-': '😔',
+    '_': '😟',
+    '+': '😕',
+    '{': '🙁',
+    '}': '☹️',
+    '|': '😣',
+    ':': '😖',
+    '"': '🤬',
+    '<': '😡',
+    '>': '😠',
+    '?': '😤',
+    '`': '😭',
+    '/': '😢',
+    ';': '🥺',
+    "'": '😩',
+    ',': '😫',
+    '.': '🤯',
+    '~': '😳',
+    '[': '🥵',
+    ']': '🥶',
+    '\\': '😶‍🌫️',
+    ';': '😱',
+    "'": '😨',
+    ',': '😰',
+    '.': '😥',
+    '/': '🫠',
+    ' ': '🤫',
+};
+            
             let decryptedText = '';
 
-            for (let i = 0; i < emojiEncryptedText.length; i++) {
-                const emoji = emojiEncryptedText.charAt(i);
+            for (let i = 0; i < text.length; i++) {
+                const emoji = text.charAt(i);
                 const char = emojiMapping[emoji] || ' '; // Use a space if emoji is not mapped
                 decryptedText += char;
             }
@@ -121,16 +221,17 @@
 
         document.getElementById('encryptButton').addEventListener('click', () => {
             const inputText = document.getElementById('inputText').value;
-            const encryptedText = encryptText(inputText);
+            const emojiText = textToEmoji(inputText);
+            const encryptedText = emojiToEmoji(emojiText);
             const encryptedOutput = document.getElementById('encryptedText');
             encryptedOutput.textContent = encryptedText;
         });
 
         document.getElementById('decryptButton').addEventListener('click', () => {
             const encryptedText = document.getElementById('inputText').value;
-            const decryptedText = decryptText(encryptedText);
+            const emojiText = decryptEmojiToEmoji(encryptedText);
             const decryptedOutput = document.getElementById('decryptedText');
-            decryptedOutput.textContent = decryptedText;
+            decryptedOutput.textContent = emojiToEmoji(emojiText);
         });
 
         document.getElementById('copyEncrypted').addEventListener('click', () => {
