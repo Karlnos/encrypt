@@ -13,19 +13,19 @@
     <div id="outputText"></div>
 
     <script>
-        function generateMarker() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let marker = '';
-            for (let i = 0; i < 3; i++) {
-                const randomIndex = Math.floor(Math.random() * chars.length);
-                marker += chars.charAt(randomIndex);
-            }
-            return marker;
+        const markers = [
+            'ב', 'ג', 'ד', 'ה', 'ו', 'G', 'ח', 'אני', 'י', 'ק', 'ל', 'M', 'נ', 'O', 'פ',
+            'ש', 'ר', 'ס', 'ט', 'U', 'V', 'W', 'איקס', 'ז'
+        ];
+
+        function getRandomMarker() {
+            const randomIndex = Math.floor(Math.random() * markers.length);
+            return markers[randomIndex];
         }
 
         function encryptText(text) {
-            const realMarker = generateMarker();
-            const fakeMarker = generateMarker();
+            const realMarker = getRandomMarker();
+            const fakeMarker = getRandomMarker();
             let encryptedText = realMarker + text.charAt(0); // Start with a random marker + the first character
 
             for (let i = 1; i < text.length; i++) {
@@ -41,15 +41,15 @@
         }
 
         function decryptText(encryptedText) {
-            const realMarker = encryptedText.substring(0, 3);
-            encryptedText = encryptedText.substring(3);
-            const fakeMarker = generateMarker();
+            const realMarker = encryptedText.substring(0, 1);
+            encryptedText = encryptedText.substring(1);
+            const fakeMarker = getRandomMarker();
             const parts = encryptedText.split(/-\*|-#/);
-            let decryptedText = encryptedText.charAt(3); // Start with the character after the first marker
+            let decryptedText = encryptedText.charAt(1); // Start with the character after the first marker
 
             for (let i = 0; i < parts.length; i++) {
                 if (i % 2 === 0) {
-                    decryptedText += String.fromCharCode(parseInt(parts[i].substring(3)));
+                    decryptedText += String.fromCharCode(parseInt(parts[i].substring(1)));
                 }
             }
             return decryptedText;
