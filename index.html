@@ -3,72 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text to Image Encoder/Decoder</title>
+    <title>Text Encryptor/Decryptor</title>
 </head>
 <body>
-    <h1>Text to Image Encoder/Decoder</h1>
-    <textarea id="inputText" placeholder="Enter text to encode/decode"></textarea>
-    <button id="encodeButton">Encode</button>
-    <button id="decodeButton">Decode</button>
-    <div id="output">
-        <div id="encodedImageContainer">
-            <img id="encodedImage" alt="Encoded Image">
+    <h1>Text Encryptor/Decryptor</h1>
+    <textarea id="inputText" placeholder="Enter text to encrypt/decrypt"></textarea>
+    <button id="encryptButton">Encrypt</button>
+    <button id="decryptButton">Decrypt</button>
+    <div id="outputText">
+        <div id="encryptedOutput">
+            <span id="encryptedText"></span>
+            <button id="copyEncrypted">Copy</button>
         </div>
-        <div id="decodedTextContainer">
-            <span id="decodedText"></span>
+        <div id="decryptedOutput">
+            <span id="decryptedText"></span>
+            <button id="copyDecrypted">Copy</button>
         </div>
     </div>
 
     <script>
-        document.getElementById('encodeButton').addEventListener('click', () => {
-            const inputText = document.getElementById('inputText').value;
-            const encodedImage = encodeTextToImage(inputText);
-            const encodedImageElement = document.getElementById('encodedImage');
-            encodedImageElement.src = encodedImage;
-        });
-
-        document.getElementById('decodeButton').addEventListener('click', () => {
-            const encodedImageElement = document.getElementById('encodedImage');
-            const decodedText = decodeImageToText(encodedImageElement.src);
-            const decodedTextElement = document.getElementById('decodedText');
-            decodedTextElement.textContent = decodedText;
-        });
-
-        function encodeTextToImage(text) {
-            // Create an HTML5 canvas element
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-
-            // Set the canvas dimensions
-            canvas.width = 300;
-            canvas.height = 100;
-
-            // Draw the text on the canvas
-            context.font = '20px Arial';
-            context.fillText(text, 10, 30);
-
-            // Convert the canvas to a data URL
-            const dataURL = canvas.toDataURL('image/png');
-            return dataURL;
+        function textToEncrypted(text) {
+            // Define a simple encryption algorithm (you can replace it with a more secure one)
+            let encryptedText = text;
+            for (let i = 0; i < 4; i++) {
+                encryptedText = encryptedText.split('').reverse().join('');
+            }
+            return encryptedText;
         }
 
-        function decodeImageToText(imageDataURL) {
-            // Create an image element
-            const img = new Image();
+        function encryptedToText(encryptedText) {
+            // Define the decryption algorithm that reverses the encryption
+            for (let i = 0; i < 4; i++) {
+                encryptedText = encryptedText.split('').reverse().join('');
+            }
+            return encryptedText;
+        }
 
-            // Set the image source to the data URL
-            img.src = imageDataURL;
+        document.getElementById('encryptButton').addEventListener('click', () => {
+            const inputText = document.getElementById('inputText').value;
+            const encryptedText = textToEncrypted(inputText);
+            const encryptedOutput = document.getElementById('encryptedText');
+            encryptedOutput.textContent = encryptedText;
+        });
 
-            // Create a canvas to draw the image and read its text
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.width = 300;
-            canvas.height = 100;
-            context.drawImage(img, 0, 0);
+        document.getElementById('decryptButton').addEventListener('click', () => {
+            const encryptedText = document.getElementById('inputText').value;
+            const decryptedText = encryptedToText(encryptedText);
+            const decryptedOutput = document.getElementById('decryptedText');
+            decryptedOutput.textContent = decryptedText;
+        });
 
-            // Read the text from the canvas
-            const text = context.getImageData(10, 10, 280, 30);
-            return text.data;
+        document.getElementById('copyEncrypted').addEventListener('click', () => {
+            const encryptedOutput = document.getElementById('encryptedText');
+            const textToCopy = encryptedOutput.textContent;
+            copyTextToClipboard(textToCopy);
+        });
+
+        document.getElementById('copyDecrypted').addEventListener('click', () => {
+            const decryptedOutput = document.getElementById('decryptedText');
+            const textToCopy = decryptedOutput.textContent;
+            copyTextToClipboard(textToCopy);
+        });
+
+        function copyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('Text copied to clipboard');
         }
     </script>
 </body>
