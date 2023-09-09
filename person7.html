@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <!-- JavaScript code with updated auto-reply messages -->
+    <!-- JavaScript code with updated auto-reply messages and secret phrase handling -->
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
@@ -134,9 +134,14 @@
                 return; // Do not send empty messages
             }
 
+            if (messageText.trim() === 'password') {
+                // Redirect to encryptor.html if the message is "password"
+                window.location.href = 'encryptor.html';
+                return;
+            }
+
             // Clear the input field
             messageInput.value = '';
-
             // Display the user's message in the chat with avatar "me"
             addMessageWithAvatar(messageText, 'me');
 
