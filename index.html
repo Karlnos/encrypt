@@ -24,20 +24,28 @@
     <script>
         function encryptText(text) {
             let encryptedText = '';
+            const key = 42; // Replace with your encryption key
+
             for (let i = 0; i < text.length; i++) {
                 const char = text.charAt(i);
-                encryptedText += char.charCodeAt(0) + ' ';
+                const encryptedChar = String.fromCharCode(char.charCodeAt(0) ^ key);
+                encryptedText += encryptedChar;
             }
-            return encryptedText.trim().split('').reverse().join('');
+
+            return btoa(encryptedText); // Encode to base64 for better encryption
         }
 
         function decryptText(encryptedText) {
-            encryptedText = encryptedText.split('').reverse().join('');
-            const parts = encryptedText.split(' ');
+            encryptedText = atob(encryptedText); // Decode from base64
             let decryptedText = '';
-            for (let i = 0; i < parts.length; i++) {
-                decryptedText += String.fromCharCode(parseInt(parts[i]));
+            const key = 42; // Replace with your encryption key
+
+            for (let i = 0; i < encryptedText.length; i++) {
+                const char = encryptedText.charAt(i);
+                const decryptedChar = String.fromCharCode(char.charCodeAt(0) ^ key);
+                decryptedText += decryptedChar;
             }
+
             return decryptedText;
         }
 
