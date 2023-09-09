@@ -18,25 +18,20 @@
             for (let i = 0; i < text.length; i++) {
                 const char = text.charAt(i);
                 if (i % 2 === 0) {
-                    encryptedText += char.charCodeAt(0) + ' ';
+                    encryptedText += char.charCodeAt(0) + '-';
                 } else {
-                    encryptedText += char + ' ';
+                    encryptedText += char.charCodeAt(0) + '*';
                 }
             }
-            encryptedText = encryptedText.split('').reverse().join('');
-            return encryptedText;
+            return 'fake-' + encryptedText + '-fake';
         }
 
         function decryptText(encryptedText) {
-            encryptedText = encryptedText.split('').reverse().join('');
-            const parts = encryptedText.split(' ');
+            const realEncryptedText = encryptedText.replace(/fake-/g, '').replace(/-fake/g, '');
+            const parts = realEncryptedText.split('*');
             let decryptedText = '';
             for (let i = 0; i < parts.length; i++) {
-                if (i % 2 === 0) {
-                    decryptedText += String.fromCharCode(parseInt(parts[i]));
-                } else {
-                    decryptedText += parts[i];
-                }
+                decryptedText += String.fromCharCode(parseInt(parts[i]));
             }
             return decryptedText;
         }
