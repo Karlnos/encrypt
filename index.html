@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Encryptor/Decryptor</title>
+</head>
+<body>
+    <h1>Text Encryptor/Decryptor</h1>
+    <textarea id="inputText" placeholder="Enter text to encrypt/decrypt"></textarea>
+    <button id="encryptButton">Encrypt</button>
+    <button id="decryptButton">Decrypt</button>
+    <div id="outputText"></div>
+
+    <script>
+        function encryptText(text) {
+            let encryptedText = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charAt(i);
+                if (i % 2 === 0) {
+                    encryptedText += char.charCodeAt(0) + ' ';
+                } else {
+                    encryptedText += char + ' ';
+                }
+            }
+            return encryptedText.trim();
+        }
+
+        function decryptText(encryptedText) {
+            const parts = encryptedText.split(' ');
+            let decryptedText = '';
+            for (let i = 0; i < parts.length; i++) {
+                if (i % 2 === 0) {
+                    decryptedText += String.fromCharCode(parseInt(parts[i]));
+                } else {
+                    decryptedText += parts[i];
+                }
+            }
+            return decryptedText;
+        }
+
+        document.getElementById('encryptButton').addEventListener('click', () => {
+            const inputText = document.getElementById('inputText').value;
+            const encryptedText = encryptText(inputText);
+            document.getElementById('outputText').textContent = 'Encrypted Text: ' + encryptedText;
+        });
+
+        document.getElementById('decryptButton').addEventListener('click', () => {
+            const encryptedText = document.getElementById('inputText').value;
+            const decryptedText = decryptText(encryptedText);
+            document.getElementById('outputText').textContent = 'Decrypted Text: ' + decryptedText;
+        });
+    </script>
+</body>
+</html>
