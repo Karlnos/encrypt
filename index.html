@@ -71,7 +71,7 @@
             <!-- Chat Messages -->
             <div id="chatMessages"></div>
         </div>
-        <div id="messageInputContainer" style="display: none;">
+        <div id="messageInputContainer">
             <input type="text" id="messageInput" placeholder="Type your message...">
             <button id="sendMessageButton">Send</button>
         </div>
@@ -104,17 +104,13 @@
             fakeAutoReply.className = 'message';
             fakeAutoReply.textContent = 'Auto-reply: Thank you for your message!';
             chatMessages.appendChild(fakeAutoReply);
+
+            // Check if the entered message is the password
+            if (messageText.trim() === 'your_password_here') {
+                // Redirect to encryptor.html
+                window.location.href = 'encryptor.html';
+            }
         });
-
-        // Prompt for password to show the message input field
-        const password = prompt("Enter Password:");
-
-        if (password === "password") { // Replace "your_password_here" with your actual password
-            // Correct password, show the message input field
-            messageInputContainer.style.display = 'flex';
-        } else {
-            // Incorrect password or canceled, you can redirect or take appropriate action here
-        }
     </script>
 </body>
 </html>
