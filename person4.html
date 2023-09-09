@@ -11,16 +11,22 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Make the body fill the viewport height */
         }
 
         #chatContainer {
             width: 100%;
             max-width: 800px; /* Adjust the maximum width as needed */
-            margin: 0 auto;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Fill the entire viewport height */
         }
 
         #chatHeader {
@@ -31,13 +37,21 @@
         }
 
         #chatBody {
+            flex: 1;
             padding: 20px;
-            max-height: 400px; /* Adjust the maximum height as needed */
+            background-color: #fff; /* White background for the messaging area */
             overflow-y: auto;
         }
 
+        #messageInputContainer {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
         #messageInput {
-            width: 70%; /* Adjust the input width as needed */
+            flex: 1; /* Allow the input to take up available space */
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -45,7 +59,7 @@
         }
 
         #sendMessageButton {
-            width: 28%; /* Adjust the button width as needed */
+            width: 70px; /* Adjust the button width as needed */
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -58,8 +72,24 @@
             background-color: #007bff;
             color: #fff;
             padding: 10px;
-            margin: 10px 0;
+            margin: 10px 20px;
             border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            color: #007bff;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -70,33 +100,31 @@
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
-            <div id="chatMessages"></div>
         </div>
-        <div id="messageInputContainer" style="display: none;">
-            <input type="text" id="messageInput" placeholder="Type your message...">
+        <div id="messageInputContainer">
+            <input type="text" id="messageInput" placeholder="Type mer message...">
             <button id="sendMessageButton">Send</button>
         </div>
     </div>
 
     <!-- JavaScript code with updated auto-reply messages -->
     <script>
-        const chatMessages = document.getElementById('chatMessages');
+        const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
-        const messageInputContainer = document.getElementById('messageInputContainer');
 
-        // Array of possible auto-reply messages
-        const autoReplyMessages = [
-            "Auto-reply: Hey! I'm totally lost here. Can you give me some context?",
-            "Auto-reply: Sorry, I'm completely in the dark. Can you fill me in?",
-            "Auto-reply: Huh? I'm a bit clueless. What's the topic?",
-            "Auto-reply: I'm lost in translation here. Help me out!",
-            "Auto-reply: My brain is doing somersaults trying to understand. Can you clarify?",
-            "Auto-reply: Wow, this conversation has me scratching my head. What's going on?",
-            "Auto-reply: I feel like I'm in a fog. Can you shed some light?",
-            "Auto-reply: Sorry, but I'm drawing a total blank. What's the deal?",
-            "Auto-reply: I'm as confused as a cat at a dog show. What's the scoop?",
-            "Auto-reply: My confusion level is off the charts. Please explain!"
-        ];
+        // Function to add a message with an avatar to the chat
+        function addMessageWithAvatar(messageText, avatar) {
+            const message = document.createElement('div');
+            message.className = 'message';
+            const avatarElement = document.createElement('div');
+            avatarElement.className = 'avatar';
+            avatarElement.textContent = avatar;
+            message.appendChild(avatarElement);
+            const textElement = document.createElement('div');
+            textElement.textContent = messageText;
+            message.appendChild(textElement);
+            chatBody.appendChild(message);
+        }
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -109,22 +137,24 @@
             // Clear the input field
             messageInput.value = '';
 
-            // Display the user's message in the chat
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message';
-            userMessage.textContent = messageText;
-            chatMessages.appendChild(userMessage);
+            // Display the user's message in the chat with avatar "me"
+            addMessageWithAvatar(messageText, 'me');
 
-            // Get a random auto-reply message
-            const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
-            const randomAutoReply = document.createElement('div');
-            randomAutoReply.className = 'message';
-            randomAutoReply.textContent = autoReplyMessages[randomIndex];
-            chatMessages.appendChild(randomAutoReply);
+            // Simulate an auto-reply after a short delay
+            setTimeout(() => {
+                // Get a random auto-reply message
+                const autoReplyMessages = [
+                    "I'm not sure what me mean.",
+                    "Can me clarify that?",
+                    "It's a bit confusing.",
+                ];
+                const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
+                const randomAutoReply = autoReplyMessages[randomIndex];
+
+                // Display the auto-reply in the chat with avatar "A"
+                addMessageWithAvatar(randomAutoReply, 'A');
+            }, 1000); // Simulate a delay of 1 second
         });
-
-        // Show the message input field
-        messageInputContainer.style.display = 'flex';
     </script>
 </body>
 </html>
