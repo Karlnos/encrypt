@@ -23,27 +23,42 @@
 
     <script>
         function encryptText(text) {
-            let encryptedText = '';
-            const key = 42; // Replace with your encryption key
+            const emojiMapping = {
+                'A': '😀',
+                'B': '😁',
+                'C': '😂',
+                'D': '😃',
+                'E': '😄',
+                // Add more mappings for other characters, numbers, and symbols
+            };
+
+            let emojiEncryptedText = '';
 
             for (let i = 0; i < text.length; i++) {
-                const char = text.charAt(i);
-                const encryptedChar = String.fromCharCode(char.charCodeAt(0) ^ key);
-                encryptedText += encryptedChar;
+                const char = text.charAt(i).toUpperCase();
+                const emoji = emojiMapping[char] || ' '; // Use a space if character is not mapped
+                emojiEncryptedText += emoji;
             }
 
-            return btoa(encryptedText); // Encode to base64 for better encryption
+            return emojiEncryptedText;
         }
 
-        function decryptText(encryptedText) {
-            encryptedText = atob(encryptedText); // Decode from base64
-            let decryptedText = '';
-            const key = 42; // Replace with your encryption key
+        function decryptText(emojiEncryptedText) {
+            const emojiMapping = {
+                '😀': 'A',
+                '😁': 'B',
+                '😂': 'C',
+                '😃': 'D',
+                '😄': 'E',
+                // Add more mappings for other emojis
+            };
 
-            for (let i = 0; i < encryptedText.length; i++) {
-                const char = encryptedText.charAt(i);
-                const decryptedChar = String.fromCharCode(char.charCodeAt(0) ^ key);
-                decryptedText += decryptedChar;
+            let decryptedText = '';
+
+            for (let i = 0; i < emojiEncryptedText.length; i++) {
+                const emoji = emojiEncryptedText.charAt(i);
+                const char = emojiMapping[emoji] || ' '; // Use a space if emoji is not mapped
+                decryptedText += char;
             }
 
             return decryptedText;
