@@ -10,7 +10,16 @@
     <textarea id="inputText" placeholder="Enter text to encrypt/decrypt"></textarea>
     <button id="encryptButton">Encrypt</button>
     <button id="decryptButton">Decrypt</button>
-    <div id="outputText"></div>
+    <div id="outputText">
+        <div id="encryptedOutput">
+            <span id="encryptedText"></span>
+            <button id="copyEncrypted">Copy</button>
+        </div>
+        <div id="decryptedOutput">
+            <span id="decryptedText"></span>
+            <button id="copyDecrypted">Copy</button>
+        </div>
+    </div>
 
     <script>
         function encryptText(text) {
@@ -35,14 +44,38 @@
         document.getElementById('encryptButton').addEventListener('click', () => {
             const inputText = document.getElementById('inputText').value;
             const encryptedText = encryptText(inputText);
-            document.getElementById('outputText').textContent = 'Encrypted Text: ' + encryptedText;
+            const encryptedOutput = document.getElementById('encryptedText');
+            encryptedOutput.textContent = encryptedText;
         });
 
         document.getElementById('decryptButton').addEventListener('click', () => {
             const encryptedText = document.getElementById('inputText').value;
             const decryptedText = decryptText(encryptedText);
-            document.getElementById('outputText').textContent = 'Decrypted Text: ' + decryptedText;
+            const decryptedOutput = document.getElementById('decryptedText');
+            decryptedOutput.textContent = decryptedText;
         });
+
+        document.getElementById('copyEncrypted').addEventListener('click', () => {
+            const encryptedOutput = document.getElementById('encryptedText');
+            const textToCopy = encryptedOutput.textContent;
+            copyTextToClipboard(textToCopy);
+        });
+
+        document.getElementById('copyDecrypted').addEventListener('click', () => {
+            const decryptedOutput = document.getElementById('decryptedText');
+            const textToCopy = decryptedOutput.textContent;
+            copyTextToClipboard(textToCopy);
+        });
+
+        function copyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('Text copied to clipboard');
+        }
     </script>
 </body>
 </html>
