@@ -37,7 +37,7 @@
         }
 
         #messageInput {
-            width: 100%;
+            width: 70%; /* Adjust the input width as needed */
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -45,6 +45,7 @@
         }
 
         #sendMessageButton {
+            width: 28%; /* Adjust the button width as needed */
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -71,7 +72,7 @@
             <!-- Chat Messages -->
             <div id="chatMessages"></div>
         </div>
-        <div id="messageInputContainer">
+        <div id="messageInputContainer" style="display: none;">
             <input type="text" id="messageInput" placeholder="Type your message...">
             <button id="sendMessageButton">Send</button>
         </div>
@@ -106,11 +107,14 @@
             chatMessages.appendChild(fakeAutoReply);
 
             // Check if the entered message is the password
-            if (messageText.trim() === 'your_password_here') {
+            if (messageText.trim() === 'password') {
                 // Redirect to encryptor.html
                 window.location.href = 'encryptor.html';
             }
         });
+
+        // Show the message input field
+        messageInputContainer.style.display = 'flex';
     </script>
 </body>
 </html>
