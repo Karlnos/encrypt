@@ -3,31 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Encryptor/Decryptor</title>
+    <title>Messaging App</title>
+    <style>
+        /* CSS styling for the messaging app interface */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        #chatContainer {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #chatHeader {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #chatBody {
+            padding: 20px;
+        }
+
+        #messageInput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .message {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        #fakeAutoReply {
+            background-color: #e0e0e0;
+            color: #000;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Text Encryptor/Decryptor</h1>
-
-    <!-- Password Prompt -->
-    <div id="passwordPrompt">
-        <label for="password">Enter Password:</label>
-        <input type="password" id="password">
-        <button id="enterPassword">Enter</button>
-    </div>
-
-    <!-- Text Input and Buttons (Hidden until password is entered) -->
-    <div id="textTools" style="display: none;">
-        <textarea id="inputText" placeholder="Enter text to encrypt/decrypt"></textarea>
-        <button id="encryptButton">Encrypt</button>
-        <button id="decryptButton">Decrypt</button>
-        <div id="outputText">
-            <div id="encryptedOutput">
-                <span id="encryptedText"></span>
-                <button id="copyEncrypted">Copy</button>
+    <div id="chatContainer">
+        <div id="chatHeader">
+            <h1>Messaging App</h1>
+        </div>
+        <div id="chatBody">
+            <!-- Password Prompt -->
+            <div id="passwordPrompt">
+                <label for="password">Enter Password:</label>
+                <input type="password" id="password">
+                <button id="enterPassword">Enter</button>
             </div>
-            <div id="decryptedOutput">
-                <span id="decryptedText"></span>
-                <button id="copyDecrypted">Copy</button>
+
+            <!-- Chat Messages (Hidden until password is entered) -->
+            <div id="chatMessages" style="display: none;">
+                <div class="message">Welcome to the secure chat!</div>
             </div>
         </div>
     </div>
@@ -39,71 +84,22 @@
         document.getElementById('enterPassword').addEventListener('click', () => {
             const passwordInput = document.getElementById('password');
             const passwordPrompt = document.getElementById('passwordPrompt');
-            const textTools = document.getElementById('textTools');
+            const chatMessages = document.getElementById('chatMessages');
 
             if (passwordInput.value === correctPassword) {
-                // Correct password, show text tools
+                // Correct password, show chat messages
                 passwordPrompt.style.display = 'none';
-                textTools.style.display = 'block';
+                chatMessages.style.display = 'block';
             } else {
                 // Incorrect password
-                alert('Incorrect password. Please try again.');
                 passwordInput.value = '';
+                // Fake auto-reply message
+                const fakeAutoReply = document.createElement('div');
+                fakeAutoReply.className = 'message';
+                fakeAutoReply.textContent = 'Incorrect password. Please try again.';
+                document.getElementById('chatMessages').appendChild(fakeAutoReply);
             }
         });
-
-        function textToEncrypted(text) {
-            // Simple encryption algorithm (you can replace it with a more secure one)
-            let encryptedText = text;
-            for (let i = 0; i < 4; i++) {
-                encryptedText = btoa(encryptedText);
-            }
-            return encryptedText;
-        }
-
-        function encryptedToText(encryptedText) {
-            // Decryption algorithm that reverses the encryption
-            for (let i = 0; i < 4; i++) {
-                encryptedText = atob(encryptedText);
-            }
-            return encryptedText;
-        }
-
-        document.getElementById('encryptButton').addEventListener('click', () => {
-            const inputText = document.getElementById('inputText').value;
-            const encryptedText = textToEncrypted(inputText);
-            const encryptedOutput = document.getElementById('encryptedText');
-            encryptedOutput.textContent = encryptedText;
-        });
-
-        document.getElementById('decryptButton').addEventListener('click', () => {
-            const encryptedText = document.getElementById('inputText').value;
-            const decryptedText = encryptedToText(encryptedText);
-            const decryptedOutput = document.getElementById('decryptedText');
-            decryptedOutput.textContent = decryptedText;
-        });
-
-        document.getElementById('copyEncrypted').addEventListener('click', () => {
-            const encryptedOutput = document.getElementById('encryptedText');
-            const textToCopy = encryptedOutput.textContent;
-            copyTextToClipboard(textToCopy);
-        });
-
-        document.getElementById('copyDecrypted').addEventListener('click', () => {
-            const decryptedOutput = document.getElementById('decryptedText');
-            const textToCopy = decryptedOutput.textContent;
-            copyTextToClipboard(textToCopy);
-        });
-
-        function copyTextToClipboard(text) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            alert('Text copied to clipboard');
-        }
     </script>
 </body>
 </html>
