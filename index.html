@@ -14,9 +14,9 @@
         }
 
         #contactsContainer {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -66,6 +66,19 @@
             border-radius: 0;
             padding: 10px;
             cursor: pointer;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .contact {
+                font-size: 80%; /* Reduce font size for smaller screens */
+            }
+            .contactSquare {
+                font-size: 20px; /* Reduce square size for smaller screens */
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+            }
         }
     </style>
 </head>
