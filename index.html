@@ -19,10 +19,11 @@
                 const char = text.charAt(i);
                 encryptedText += char.charCodeAt(0) + ' ';
             }
-            return encryptedText.trim();
+            return encryptedText.trim().split('').reverse().join('');
         }
 
         function decryptText(encryptedText) {
+            encryptedText = encryptedText.split('').reverse().join('');
             const parts = encryptedText.split(' ');
             let decryptedText = '';
             for (let i = 0; i < parts.length; i++) {
