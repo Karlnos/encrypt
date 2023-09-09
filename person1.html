@@ -13,7 +13,54 @@
             padding: 0;
         }
 
-        /* ... (your CSS styles here) ... */
+        #chatContainer {
+            width: 100%;
+            max-width: 800px; /* Adjust the maximum width as needed */
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #chatHeader {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #chatBody {
+            padding: 20px;
+            max-height: 400px; /* Adjust the maximum height as needed */
+            overflow-y: auto;
+        }
+
+        #messageInput {
+            width: 70%; /* Adjust the input width as needed */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #sendMessageButton {
+            width: 28%; /* Adjust the button width as needed */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .message {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +78,7 @@
         </div>
     </div>
 
-    <!-- JavaScript code moved to the end of the body -->
+    <!-- JavaScript code with updated auto-reply messages -->
     <script>
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
@@ -39,17 +86,17 @@
 
         // Array of possible auto-reply messages
         const autoReplyMessages = [
-    "Auto-reply: I'm feeling a bit lost here, like trying to find a needle in a haystack. What's up?",
-    "Auto-reply: My brain's doing somersaults trying to catch up. Mind giving me a clue?",
-    "Auto-reply: Sorry, but my mental compass is spinning wildly. What's the direction?",
-    "Auto-reply: I'm as bewildered as a penguin in the Sahara. Can you provide some guidance?",
-    "Auto-reply: I'm in the middle of a maze without a map. Can you point me in the right direction?",
-    "Auto-reply: This conversation is like a jigsaw puzzle, and I'm missing a lot of pieces. Help me complete it?",
-    "Auto-reply: I'm feeling like a deer caught in headlights. What am I missing?",
-    "Auto-reply: My confusion levels are through the roof. Can you help me find solid ground?",
-    "Auto-reply: I'm more lost than a penguin in the desert. Can you lead the way?",
-    "Auto-reply: I'm as puzzled as a Rubik's Cube in the dark. What's the solution?"
-];
+            "Auto-reply: Hey! I'm totally lost here. Can you give me some context?",
+            "Auto-reply: Sorry, I'm completely in the dark. Can you fill me in?",
+            "Auto-reply: Huh? I'm a bit clueless. What's the topic?",
+            "Auto-reply: I'm lost in translation here. Help me out!",
+            "Auto-reply: My brain is doing somersaults trying to understand. Can you clarify?",
+            "Auto-reply: Wow, this conversation has me scratching my head. What's going on?",
+            "Auto-reply: I feel like I'm in a fog. Can you shed some light?",
+            "Auto-reply: Sorry, but I'm drawing a total blank. What's the deal?",
+            "Auto-reply: I'm as confused as a cat at a dog show. What's the scoop?",
+            "Auto-reply: My confusion level is off the charts. Please explain!"
+        ];
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
