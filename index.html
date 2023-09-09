@@ -14,13 +14,12 @@
         }
 
         #contactsContainer {
-            max-width: 100%;
-            margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Minimum height to fill the viewport */
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            overflow: hidden;
         }
 
         #contactsHeader {
@@ -59,7 +58,6 @@
         }
 
         #createNewContactButton {
-            width: 100%;
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -69,8 +67,8 @@
         }
 
         /* Add white space below the "Create New Contact" button */
-        #createNewContactButton + div {
-            height: 20px;
+        #spacer {
+            flex-grow: 1; /* Expand to fill available space */
         }
 
         /* Responsive design */
@@ -100,8 +98,8 @@
             <!-- Add more contacts here -->
         </div>
         <button id="createNewContactButton" onclick="window.location.href='create_contact.html'">Create New Contact</button>
-        <!-- Add white space below the "Create New Contact" button -->
-        <div></div>
+        <!-- Add flexible white space below the "Create New Contact" button -->
+        <div id="spacer"></div>
     </div>
 </body>
 </html>
