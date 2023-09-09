@@ -14,7 +14,7 @@
         }
 
         #chatContainer {
-            max-width: 600px;
+            width: 400px;
             margin: 0 auto;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -31,6 +31,8 @@
 
         #chatBody {
             padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         #messageInput {
@@ -38,6 +40,16 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #sendMessageButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
         }
 
         .message {
@@ -63,17 +75,12 @@
             <h1>Messaging App</h1>
         </div>
         <div id="chatBody">
-            <!-- Password Prompt -->
-            <div id="passwordPrompt">
-                <label for="messageInput">Send Message:</label>
-                <input type="text" id="messageInput">
-                <button id="sendMessage">Send</button>
-            </div>
-
-            <!-- Chat Messages (Hidden until password is entered) -->
-            <div id="chatMessages" style="display: none;">
-                <div class="message">Welcome to the secure chat!</div>
-            </div>
+            <!-- Chat Messages -->
+            <div id="chatMessages"></div>
+        </div>
+        <div id="messageInputContainer" style="display: none;">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendMessageButton">Send</button>
         </div>
     </div>
 
@@ -81,12 +88,19 @@
         // Password for accessing the tool
         const correctPassword = "TjBQQDIydzByZEgzcjM=";
 
-        document.getElementById('sendMessage').addEventListener('click', () => {
+        const chatContainer = document.getElementById('chatContainer');
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInputContainer = document.getElementById('messageInputContainer');
+
+        document.getElementById('sendMessageButton').addEventListener('click', () => {
             const messageInput = document.getElementById('messageInput');
-            const chatMessages = document.getElementById('chatMessages');
 
             // Get the message text from the input field
             const messageText = messageInput.value;
+
+            if (messageText.trim() === '') {
+                return; // Do not send empty messages
+            }
 
             // Clear the input field
             messageInput.value = '';
@@ -103,6 +117,18 @@
             fakeAutoReply.textContent = 'Auto-reply: Thank you for your message!';
             chatMessages.appendChild(fakeAutoReply);
         });
+
+        // Simulate login by entering a password
+        const password = prompt("Enter Password:");
+        if (password === correctPassword) {
+            // Correct password, show the message input field
+            messageInputContainer.style.display = 'flex';
+            chatContainer.style.width = '600px'; // Adjust container width
+        } else {
+            // Incorrect password
+            alert('Incorrect password. Please try again.');
+            // Redirect or take appropriate action here
+        }
     </script>
 </body>
 </html>
