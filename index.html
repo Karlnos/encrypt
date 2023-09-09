@@ -14,22 +14,23 @@
 
     <script>
         function encryptText(text) {
-            let encryptedText = '';
-            for (let i = 0; i < text.length; i++) {
+            let encryptedText = 'i4' + text.charAt(0); // Start with "i4" + the first character
+            for (let i = 1; i < text.length; i++) {
                 const char = text.charAt(i);
                 if (i % 2 === 0) {
-                    encryptedText += char.charCodeAt(0) + '-';
+                    encryptedText += char.charCodeAt(0) + '-*';
                 } else {
-                    encryptedText += char.charCodeAt(0) + '*';
+                    encryptedText += char.charCodeAt(0) + '-#';
                 }
             }
-            return 'fake-' + encryptedText + '-fake';
+            encryptedText += 'f3'; // End with "f3" as a marker
+            return encryptedText;
         }
 
         function decryptText(encryptedText) {
-            const realEncryptedText = encryptedText.replace(/fake-/g, '').replace(/-fake/g, '');
-            const parts = realEncryptedText.split('*');
-            let decryptedText = '';
+            const realEncryptedText = encryptedText.replace(/i4|f3/g, ''); // Remove markers
+            const parts = realEncryptedText.split(/-\*|-#/);
+            let decryptedText = realEncryptedText.charAt(1); // Start with the second character
             for (let i = 0; i < parts.length; i++) {
                 decryptedText += String.fromCharCode(parseInt(parts[i]));
             }
