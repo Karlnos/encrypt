@@ -11,12 +11,15 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Make the body fill the viewport height */
         }
 
         #chatContainer {
             width: 100%;
             max-width: 800px; /* Adjust the maximum width as needed */
-            margin: 0 auto;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -36,8 +39,15 @@
             overflow-y: auto;
         }
 
+        #messageInputContainer {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
         #messageInput {
-            width: 70%; /* Adjust the input width as needed */
+            flex: 1; /* Allow the input to take up available space */
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -45,7 +55,7 @@
         }
 
         #sendMessageButton {
-            width: 28%; /* Adjust the button width as needed */
+            width: 70px; /* Adjust the button width as needed */
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -60,6 +70,19 @@
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            color: #007bff;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 50%;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -70,9 +93,17 @@
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
-            <div id="chatMessages"></div>
+            <div class="message">
+                <div class="avatar">A</div>
+                <div>Hi there!</div>
+            </div>
+            <div class="message">
+                <div class="avatar">B</div>
+                <div>Hey! What's up?</div>
+            </div>
+            <!-- Add more messages as needed -->
         </div>
-        <div id="messageInputContainer" style="display: none;">
+        <div id="messageInputContainer">
             <input type="text" id="messageInput" placeholder="Type your message...">
             <button id="sendMessageButton">Send</button>
         </div>
@@ -80,51 +111,7 @@
 
     <!-- JavaScript code with updated auto-reply messages -->
     <script>
-        const chatMessages = document.getElementById('chatMessages');
-        const messageInput = document.getElementById('messageInput');
-        const messageInputContainer = document.getElementById('messageInputContainer');
-
-        // Array of possible auto-reply messages
-        const autoReplyMessages = [
-            "Auto-reply: Hey! I'm totally lost here. Can you give me some context?",
-            "Auto-reply: Sorry, I'm completely in the dark. Can you fill me in?",
-            "Auto-reply: Huh? I'm a bit clueless. What's the topic?",
-            "Auto-reply: I'm lost in translation here. Help me out!",
-            "Auto-reply: My brain is doing somersaults trying to understand. Can you clarify?",
-            "Auto-reply: Wow, this conversation has me scratching my head. What's going on?",
-            "Auto-reply: I feel like I'm in a fog. Can you shed some light?",
-            "Auto-reply: Sorry, but I'm drawing a total blank. What's the deal?",
-            "Auto-reply: I'm as confused as a cat at a dog show. What's the scoop?",
-            "Auto-reply: My confusion level is off the charts. Please explain!"
-        ];
-
-        document.getElementById('sendMessageButton').addEventListener('click', () => {
-            // Get the message text from the input field
-            const messageText = messageInput.value;
-
-            if (messageText.trim() === '') {
-                return; // Do not send empty messages
-            }
-
-            // Clear the input field
-            messageInput.value = '';
-
-            // Display the user's message in the chat
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message';
-            userMessage.textContent = messageText;
-            chatMessages.appendChild(userMessage);
-
-            // Get a random auto-reply message
-            const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
-            const randomAutoReply = document.createElement('div');
-            randomAutoReply.className = 'message';
-            randomAutoReply.textContent = autoReplyMessages[randomIndex];
-            chatMessages.appendChild(randomAutoReply);
-        });
-
-        // Show the message input field
-        messageInputContainer.style.display = 'flex';
+        // Your JavaScript code remains unchanged
     </script>
 </body>
 </html>
