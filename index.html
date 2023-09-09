@@ -7,72 +7,80 @@
 </head>
 <body>
     <h1>Text Encryptor/Decryptor</h1>
-    <textarea id="inputText" placeholder="Enter text to encrypt/decrypt"></textarea>
-    <button id="encryptButton">Encrypt</button>
-    <button id="decryptButton">Decrypt</button>
-    <div id="outputText">
-        <div id="encryptedOutput">
-            <span id="encryptedText"></span>
-            <button id="copyEncrypted">Copy</button>
-        </div>
-        <div id="decryptedOutput">
-            <span id="decryptedText"></span>
-            <button id="copyDecrypted">Copy</button>
+
+    <!-- Password Prompt -->
+    <div id="passwordPrompt">
+        <label for="password">Enter Password:</label>
+        <input type="password" id="password">
+        <button id="enterPassword">Enter</button>
+    </div>
+
+    <!-- Text Input and Buttons (Hidden until password is entered) -->
+    <div id="textTools" style="display: none;">
+        <textarea id="inputText" placeholder="Enter text to encrypt/decrypt"></textarea>
+        <button id="encryptButton">Encrypt</button>
+        <button id="decryptButton">Decrypt</button>
+        <div id="outputText">
+            <div id="encryptedOutput">
+                <span id="encryptedText"></span>
+                <button id="copyEncrypted">Copy</button>
+            </div>
+            <div id="decryptedOutput">
+                <span id="decryptedText"></span>
+                <button id="copyDecrypted">Copy</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // XOR encryption function with a simple secret key
-        function xorEncrypt(text, key) {
-            let encryptedText = '';
-            for (let i = 0; i < text.length; i++) {
-                encryptedText += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        // Password for accessing the tool
+        const correctPassword = "YourPasswordHere";
+
+        document.getElementById('enterPassword').addEventListener('click', () => {
+            const passwordInput = document.getElementById('password');
+            const passwordPrompt = document.getElementById('passwordPrompt');
+            const textTools = document.getElementById('textTools');
+
+            if (passwordInput.value === correctPassword) {
+                // Correct password, show text tools
+                passwordPrompt.style.display = 'none';
+                textTools.style.display = 'block';
+            } else {
+                // Incorrect password
+                alert('Incorrect password. Please try again.');
+                passwordInput.value = '';
+            }
+        });
+
+        function textToEncrypted(text) {
+            // Simple encryption algorithm (you can replace it with a more secure one)
+            let encryptedText = text;
+            for (let i = 0; i < 4; i++) {
+                encryptedText = btoa(encryptedText);
             }
             return encryptedText;
         }
 
-        // XOR decryption function with the same secret key
-        function xorDecrypt(encryptedText, key) {
-            return xorEncrypt(encryptedText, key);
-        }
-
-        function textToBase64(text) {
-            return btoa(text);
-        }
-
-        function base64ToText(base64Text) {
-            return atob(base64Text);
+        function encryptedToText(encryptedText) {
+            // Decryption algorithm that reverses the encryption
+            for (let i = 0; i < 4; i++) {
+                encryptedText = atob(encryptedText);
+            }
+            return encryptedText;
         }
 
         document.getElementById('encryptButton').addEventListener('click', () => {
             const inputText = document.getElementById('inputText').value;
-            // Use a secret key (you can replace it with your own)
-            const secretKey = 'MySecretKey';
-            
-            // Encrypt using XOR encryption with the secret key
-            const encryptedText = xorEncrypt(inputText, secretKey);
-            
-            // Then encode the result in Base64
-            const base64Encoded = textToBase64(encryptedText);
-            
+            const encryptedText = textToEncrypted(inputText);
             const encryptedOutput = document.getElementById('encryptedText');
-            encryptedOutput.textContent = base64Encoded;
+            encryptedOutput.textContent = encryptedText;
         });
 
         document.getElementById('decryptButton').addEventListener('click', () => {
-            const base64Encoded = document.getElementById('inputText').value;
-            try {
-                // Decode the Base64
-                const encryptedText = base64ToText(base64Encoded);
-                // Use the same secret key for decryption
-                const secretKey = 'MySecretKey';
-                // Decrypt using XOR decryption with the secret key
-                const decryptedText = xorDecrypt(encryptedText, secretKey);
-                const decryptedOutput = document.getElementById('decryptedText');
-                decryptedOutput.textContent = decryptedText;
-            } catch (error) {
-                alert('Invalid input. Please make sure the input is a valid Base64-encoded string.');
-            }
+            const encryptedText = document.getElementById('inputText').value;
+            const decryptedText = encryptedToText(encryptedText);
+            const decryptedOutput = document.getElementById('decryptedText');
+            decryptedOutput.textContent = decryptedText;
         });
 
         document.getElementById('copyEncrypted').addEventListener('click', () => {
