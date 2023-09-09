@@ -28,13 +28,10 @@
                 const char = text.charAt(i);
                 encryptedText += char.charCodeAt(0) + ' ';
             }
-            encryptedText = encryptedText.trim().split('').reverse().join('');
-            encryptedText = textToEmoji(encryptedText); // Convert to emojis
-            return encryptedText;
+            return encryptedText.trim().split('').reverse().join('');
         }
 
         function decryptText(encryptedText) {
-            encryptedText = emojiToText(encryptedText); // Convert emojis back to text
             encryptedText = encryptedText.split('').reverse().join('');
             const parts = encryptedText.split(' ');
             let decryptedText = '';
@@ -42,31 +39,6 @@
                 decryptedText += String.fromCharCode(parseInt(parts[i]));
             }
             return decryptedText;
-        }
-
-        function textToEmoji(text) {
-            const emojis = ['😊', '😁', '😃', '😄', '😅', '😆', '😂', '🤣', '😊'];
-            let emojiText = '';
-            for (let i = 0; i < text.length; i++) {
-                const charCode = text.charCodeAt(i);
-                if (charCode >= 32 && charCode <= 128) {
-                    emojiText += emojis[charCode - 32];
-                }
-            }
-            return emojiText;
-        }
-
-        function emojiToText(emojiText) {
-            const emojis = ['😊', '😁', '😃', '😄', '😅', '😆', '😂', '🤣', '😊'];
-            let text = '';
-            for (let i = 0; i < emojiText.length; i++) {
-                const emoji = emojiText.charAt(i);
-                const emojiIndex = emojis.indexOf(emoji);
-                if (emojiIndex !== -1) {
-                    text += String.fromCharCode(emojiIndex + 32);
-                }
-            }
-            return text;
         }
 
         document.getElementById('encryptButton').addEventListener('click', () => {
