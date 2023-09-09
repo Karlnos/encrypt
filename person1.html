@@ -13,54 +13,7 @@
             padding: 0;
         }
 
-        #chatContainer {
-            width: 100%;
-            max-width: 800px; /* Adjust the maximum width as needed */
-            margin: 0 auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        #chatHeader {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #chatBody {
-            padding: 20px;
-            max-height: 400px; /* Adjust the maximum height as needed */
-            overflow-y: auto;
-        }
-
-        #messageInput {
-            width: 70%; /* Adjust the input width as needed */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        #sendMessageButton {
-            width: 28%; /* Adjust the button width as needed */
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .message {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
+        /* ... (your CSS styles here) ... */
     </style>
 </head>
 <body>
@@ -78,10 +31,25 @@
         </div>
     </div>
 
+    <!-- JavaScript code moved to the end of the body -->
     <script>
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
         const messageInputContainer = document.getElementById('messageInputContainer');
+
+        // Array of possible auto-reply messages
+        const autoReplyMessages = [
+            'Auto-reply: Thanks for your message!',
+            'Auto-reply: Hey there! I\'m a bit confused, what are you talking about?',
+            'Auto-reply: Hmmm, I\'m not sure I follow. Can you explain?',
+            'Auto-reply: Uh-oh, I\'m lost! What\'s the topic?',
+            'Auto-reply: Sorry, I\'m a bit baffled. Can you provide more context?',
+            'Auto-reply: I\'m your friendly chat buddy, but I\'m totally lost. Help me out!',
+            'Auto-reply: Confused friend here! Could you clarify, please?',
+            'Auto-reply: I wish I could understand, but I\'m drawing a blank. Care to explain?',
+            'Auto-reply: I\'m scratching my head here. Can you give me a hint?',
+            'Auto-reply: You\'ve got me stumped! Please enlighten me.'
+        ];
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -100,17 +68,12 @@
             userMessage.textContent = messageText;
             chatMessages.appendChild(userMessage);
 
-            // Fake auto-reply message (you can replace this with a more complex chatbot logic)
-            const fakeAutoReply = document.createElement('div');
-            fakeAutoReply.className = 'message';
-            fakeAutoReply.textContent = 'Auto-reply: Thank you for your message!';
-            chatMessages.appendChild(fakeAutoReply);
-
-            // Check if the entered message is the password
-            if (messageText.trim() === 'password') {
-                // Redirect to encryptor.html
-                window.location.href = 'encryptor.html';
-            }
+            // Get a random auto-reply message
+            const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
+            const randomAutoReply = document.createElement('div');
+            randomAutoReply.className = 'message';
+            randomAutoReply.textContent = autoReplyMessages[randomIndex];
+            chatMessages.appendChild(randomAutoReply);
         });
 
         // Show the message input field
