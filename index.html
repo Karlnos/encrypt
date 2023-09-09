@@ -13,27 +13,43 @@
     <div id="outputText"></div>
 
     <script>
+        function generateMarker() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let marker = '';
+            for (let i = 0; i < 3; i++) {
+                const randomIndex = Math.floor(Math.random() * chars.length);
+                marker += chars.charAt(randomIndex);
+            }
+            return marker;
+        }
+
         function encryptText(text) {
-            let encryptedText = 'B4i' + text.charAt(0); // Start with "B4i" + the first character
+            const realMarker = generateMarker();
+            const fakeMarker = generateMarker();
+            let encryptedText = realMarker + text.charAt(0); // Start with a random marker + the first character
+
             for (let i = 1; i < text.length; i++) {
                 const char = text.charAt(i);
                 if (i % 2 === 0) {
-                    encryptedText += 'X' + char.charCodeAt(0) + '-*';
+                    encryptedText += realMarker + char.charCodeAt(0) + '-*';
                 } else {
-                    encryptedText += 'Y' + char.charCodeAt(0) + '-#';
+                    encryptedText += fakeMarker + char.charCodeAt(0) + '-#';
                 }
             }
-            encryptedText += 'F3'; // End with "F3" as a marker
+            encryptedText += realMarker; // End with the same random marker
             return encryptedText;
         }
 
         function decryptText(encryptedText) {
-            const realEncryptedText = encryptedText.replace(/B4i|F3/g, ''); // Remove markers
-            const parts = realEncryptedText.split(/-\*|-#/);
-            let decryptedText = realEncryptedText.charAt(3); // Start with the fourth character
+            const realMarker = encryptedText.substring(0, 3);
+            encryptedText = encryptedText.substring(3);
+            const fakeMarker = generateMarker();
+            const parts = encryptedText.split(/-\*|-#/);
+            let decryptedText = encryptedText.charAt(3); // Start with the character after the first marker
+
             for (let i = 0; i < parts.length; i++) {
                 if (i % 2 === 0) {
-                    decryptedText += String.fromCharCode(parseInt(parts[i].substring(1)));
+                    decryptedText += String.fromCharCode(parseInt(parts[i].substring(3)));
                 }
             }
             return decryptedText;
