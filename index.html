@@ -24,30 +24,33 @@
     <script>
         function textToEncrypted(text) {
             // Define a simple encryption algorithm (you can replace it with a more secure one)
-            const encryptedText = text.split('').reverse().join('');
+            let encryptedText = text;
+            for (let i = 0; i < 4; i++) {
+                encryptedText = encryptedText.split('').reverse().join('');
+            }
             return encryptedText;
         }
 
         function encryptedToText(encryptedText) {
             // Define the decryption algorithm that reverses the encryption
-            const decryptedText = encryptedText.split('').reverse().join('');
-            return decryptedText;
+            for (let i = 0; i < 4; i++) {
+                encryptedText = encryptedText.split('').reverse().join('');
+            }
+            return encryptedText;
         }
 
         document.getElementById('encryptButton').addEventListener('click', () => {
             const inputText = document.getElementById('inputText').value;
-            const firstEncryption = textToEncrypted(inputText);
-            const twiceEncryptedText = textToEncrypted(firstEncryption);
+            const encryptedText = textToEncrypted(inputText);
             const encryptedOutput = document.getElementById('encryptedText');
-            encryptedOutput.textContent = twiceEncryptedText;
+            encryptedOutput.textContent = encryptedText;
         });
 
         document.getElementById('decryptButton').addEventListener('click', () => {
             const encryptedText = document.getElementById('inputText').value;
-            const firstDecryption = encryptedToText(encryptedText);
-            const twiceDecryptedText = encryptedToText(firstDecryption);
+            const decryptedText = encryptedToText(encryptedText);
             const decryptedOutput = document.getElementById('decryptedText');
-            decryptedOutput.textContent = twiceDecryptedText;
+            decryptedOutput.textContent = decryptedText;
         });
 
         document.getElementById('copyEncrypted').addEventListener('click', () => {
