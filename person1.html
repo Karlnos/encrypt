@@ -43,7 +43,7 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column; /* Stack messages vertically */
-            align-items: flex-end; /* Messages on the right are aligned to the right */
+            align-items: flex-start; /* Messages on the left are aligned to the left */
         }
 
         #messageInputContainer {
@@ -75,7 +75,7 @@
         .message-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: flex-start;
             margin-bottom: 10px;
         }
 
@@ -91,6 +91,12 @@
             background-color: #eee; /* Friend's message color */
             color: #333; /* Text color for friend's messages */
             align-self: flex-start; /* Friend's messages stick to the left */
+        }
+
+        .message.me {
+            background-color: #007bff; /* Your message color */
+            color: #fff; /* Text color for your messages */
+            align-self: flex-end; /* Your messages stick to the right */
         }
 
         .time-sent {
@@ -109,7 +115,7 @@
             <!-- Chat Messages -->
             <!-- Your previous messages -->
             <div class="message-container">
-                <div class="message">
+                <div class="message me">
                     Hey there!
                     <div class="time-sent">11:55 AM</div>
                 </div>
@@ -142,7 +148,7 @@
             const messageElement = document.createElement('div');
             messageElement.className = `message${isRight ? ' me' : ' friend'}`;
             messageElement.textContent = messageText;
-            
+
             // Get the current time
             const now = new Date();
             const timeSent = `${now.getHours()}:${now.getMinutes()}`;
