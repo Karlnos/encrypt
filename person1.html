@@ -71,7 +71,6 @@
         .message-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Align messages to the top */
             margin: 10px;
         }
 
@@ -80,8 +79,14 @@
             color: #fff;
             padding: 10px;
             border-radius: 5px;
-            flex: 1;
-            position: relative; /* Add relative positioning to the message */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .message.me {
+            background-color: #4caf50; /* Your message color */
+            align-items: flex-end;
         }
 
         .avatar {
@@ -96,40 +101,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: absolute; /* Add absolute positioning to the avatar */
-            border: 2px solid black; /* Add a black border to the avatar */
-        }
-
-        .right {
-            justify-content: flex-end;
-            text-align: right;
-            align-items: flex-end; /* Align unread/read to the bottom */
-        }
-
-        .left {
-            justify-content: flex-start;
-            text-align: left;
-            align-items: flex-start; /* Align unread/read to the top */
-        }
-
-        .me .avatar {
-            order: 2; /* Place your avatar on the right side */
-            right: -40px; /* Adjust the distance of your avatar from the right edge */
-        }
-
-        .friend .avatar {
-            order: 1; /* Place your friend's avatar on the left side */
-            left: -40px; /* Adjust the distance of your friend's avatar from the left edge */
         }
 
         .time-sent {
             font-size: 12px;
-            color: #555;
             margin-top: 5px;
         }
 
+        .read {
+            font-size: 12px;
+            color: black;
+            margin-top: 5px;
+        }
+        
         .unread {
-            color: black; /* Change the color to black for unread messages */
+            font-size: 12px;
+            color: black;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -144,9 +132,9 @@
             <div class="message-container right">
                 <div class="message me">
                     <div class="avatar me">me</div>
-                    <span class="time-sent">12:00 PM</span>
                     Hey there!
-                    <span class="unread">Unread</span>
+                    <div class="read">Read</div>
+                    <div class="time-sent">11:55 AM</div>
                 </div>
             </div>
 
@@ -154,9 +142,9 @@
             <div class="message-container left">
                 <div class="message friend">
                     <div class="avatar friend">friend</div>
-                    <span class="time-sent">11:59 AM</span>
                     Hi! How's it going?
-                    <span class="read">Read</span>
+                    <div class="read">Read</div>
+                    <div class="time-sent">11:59 AM</div>
                 </div>
             </div>
         </div>
@@ -183,7 +171,7 @@
             message.appendChild(avatarElement);
 
             if (!isRight) {
-                const unreadElement = document.createElement('span');
+                const unreadElement = document.createElement('div');
                 unreadElement.className = 'unread';
                 unreadElement.textContent = 'Unread';
                 message.appendChild(unreadElement);
@@ -191,6 +179,9 @@
 
             const timeSentElement = document.createElement('div');
             timeSentElement.className = 'time-sent';
+            const now = new Date();
+            const timeSent = `${now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}`;
+            timeSentElement.textContent = timeSent;
             message.appendChild(timeSentElement);
 
             const textElement = document.createElement('div');
@@ -227,24 +218,15 @@
                     "I could use some clarification.",
                     "This is making me scratch my head.",
                     "I'm feeling a bit disoriented.",
-                    "I'm struggling to make sense of this.",
+                    "I'm struggling to make sense of this."
                 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
                 // Display the auto-reply in the chat with avatar "J"
                 addMessageWithAvatar(randomAutoReply, 'J', false);
-            }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 and 10 seconds
+            }, Math.floor(Math.random() * 10000) + 1000); // Random delay between 1 to 10 seconds
         }
-
-        // Your previous messages
-        addMessageWithAvatar("Hey there!", 'me', true);
-
-        // Friend's previous messages
-        addMessageWithAvatar("Hi! How's it going?", 'friend', false);
-
-        // Mark a new message as "unread"
-        let isNewMessageUnread = true;
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -256,28 +238,8 @@
 
             // Clear the input field
             messageInput.value = '';
-
-            // Display your message in the chat with your avatar on the right
+            // Display your message in the chat with avatar "me"
             addMessageWithAvatar(messageText, 'me', true);
-
-            // Get the current time for your sent message
-            const timeSent = new Date();
-            const timeSentStr = `${timeSent.getHours()}:${timeSent.getMinutes()}`;
-            const timeSentElement = document.createElement('div');
-            timeSentElement.className = 'time-sent';
-            timeSentElement.textContent = timeSentStr;
-
-            // Add "Unread" status for new messages
-            if (isNewMessageUnread) {
-                const unreadElement = document.createElement('span');
-                unreadElement.className = 'unread';
-                unreadElement.textContent = 'Unread';
-                isNewMessageUnread = false;
-                timeSentElement.appendChild(unreadElement);
-            }
-
-            // Add the time sent below your message
-            chatBody.lastElementChild.appendChild(timeSentElement);
 
             // Simulate an auto-reply after sending your message
             simulateAutoReply(messageText);
