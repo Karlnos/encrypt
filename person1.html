@@ -59,7 +59,7 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column; /* Stack messages vertically */
-            align-items: flex-start; /* All messages aligned to the left */
+            align-items: left; /* Your messages on the right are aligned to the right */
         }
 
         /* Styling for the message input area */
@@ -102,9 +102,9 @@
             color: #333; /* Text color for friend's messages */
             text-align: left; /* Align text to the left within the message container */
             border-radius: 15px; /* Round the corners of friend's messages */
-            padding: 12px 15px; /* Adjust padding for smaller size */
-            max-width: 70%; /* Limit message width */
-            font-size: 18px; /* Adjust font size for smaller size */
+            padding: 18px 20px; /* Adjust padding for smaller size */
+            max-width: 78%; /* Limit message width */
+            font-size: 26px; /* Adjust font size for smaller size */
             position: relative; /* Enable relative positioning for the message container */
         }
 
@@ -114,9 +114,9 @@
             align-self: flex-end; /* Your messages stick to the right */
             text-align: left; /* Align text to the left within the message container */
             border-radius: 15px; /* Round the corners of your messages */
-            padding: 12px 15px; /* Adjust padding for smaller size */
-            max-width: 70%; /* Limit message width */
-            font-size: 18px; /* Adjust font size for smaller size */
+            padding: 18px 20px; /* Adjust padding for smaller size */
+            max-width: 78%; /* Limit message width */
+            font-size: 26px; /* Adjust font size for smaller size */
             position: relative; /* Enable relative positioning for the message container */
         }
     </style>
@@ -125,25 +125,22 @@
     <div id="chatContainer">
         <div id="chatHeader">
             <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
-            <div id="chatTitle">Special User</div>
+            <div id="chatTitle">‎Special User</div>
         </div>
         <div id="chatBody">
-            <!-- Container for all chat messages -->
-            <div id="chatMessages">
-                <!-- Previous chat messages can go here if any -->
-
-                <!-- John's messages -->
-                <div class="message-container">
-                    <div class="message friend">
-                        Hey, how's your day going?
-                    </div>
-                    <div class="message me">
-                        Hi John! It's been a productive day so far. How about you?
-                    </div>
+            <!-- Chat Messages -->
+            <!-- Your previous messages -->
+            <div class="message-container">
+                <div class="message me">
+                    Hey there!
                 </div>
+            </div>
 
-                <!-- More previous messages can be added here -->
-
+            <!-- Friend's previous messages -->
+            <div class="message-container">
+                <div class="message friend">
+                    Hi! How's it going?
+                </div>
             </div>
         </div>
         <!-- Message input area -->
@@ -157,7 +154,6 @@
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
-        const chatMessages = document.getElementById('chatMessages'); // Added container
 
         // Function to add a message to the chat
         function addMessage(messageText, isMe) {
@@ -169,7 +165,7 @@
             messageElement.textContent = messageText;
 
             messageContainer.appendChild(messageElement);
-            chatMessages.appendChild(messageContainer); // Append messages to the chatMessages container
+            chatBody.appendChild(messageContainer);
 
             // Scroll to the bottom of the chat container
             chatBody.scrollTop = chatBody.scrollHeight;
@@ -180,16 +176,10 @@
             }
         }
 
-        // Load previous chat messages (example)
-        const previousMessages = [
-            { text: "Hey there! How's it going?", isMe: false },
-            { text: "I'm doing well, thanks for asking. How about you?", isMe: true },
-            // Add more previous messages here
-        ];
-
-        previousMessages.forEach((message) => {
-            addMessage(message.text, message.isMe);
-        });
+        // Simulate an initial message from your friend
+        setTimeout(() => {
+            addMessage("Hey there! How's it going?", false);
+        }, 1000);
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
