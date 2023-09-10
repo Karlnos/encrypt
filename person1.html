@@ -152,29 +152,12 @@
     "I'm not sure I follow.",
     "Could you please explain that further?",
     "I'm finding it a bit perplexing.",
-    "It's a tad baffling to me.",
-    "I'm having trouble understanding.",
-    "I'm somewhat puzzled by that.",
-    "Could you shed some light on this?",
-    "This is a bit mystifying.",
-    "I'm a bit lost here.",
-    "I'm having a hard time grasping this.",
-    "This is leaving me a little bewildered.",
-    "I'm finding it rather unclear.",
-    "I'm not entirely certain about this.",
-    "This is a touch complicated for me.",
-    "I'm somewhat befuddled by this.",
-    "I'm a little bit in the dark here.",
-    "I could use some clarification.",
-    "This is making me scratch my head.",
-    "I'm feeling a bit disoriented.",
-    "I'm struggling to make sense of this."
 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat with avatar "J"
-                addMessageWithAvatar(randomAutoReply, 'J');
+                // Display the auto-reply in the chat with avatar "USER"
+                addMessageWithAvatar(randomAutoReply, 'USER');
             }, 3000); // Simulate a delay of 1 second
         });
     </script>
