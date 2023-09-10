@@ -59,7 +59,7 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column; /* Stack messages vertically */
-            align-items: left; /* Your messages on the right are aligned to the right */
+            align-items: flex-start; /* All messages aligned to the left */
         }
 
         /* Styling for the message input area */
@@ -145,11 +145,11 @@
                 <!-- More previous messages can be added here -->
 
             </div>
-            <!-- Message input area -->
-            <div id="messageInputContainer">
-                <input type="text" id="messageInput" placeholder="Type your message...">
-                <button id="sendMessageButton">Send</button>
-            </div>
+        </div>
+        <!-- Message input area -->
+        <div id="messageInputContainer">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendMessageButton">Send</button>
         </div>
     </div>
 
