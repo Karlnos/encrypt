@@ -125,32 +125,17 @@
     <div id="chatContainer">
         <div id="chatHeader">
             <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
-            <div id="chatTitle">‎Special User</div>
+            <div id="chatTitle">‎Mary Smith</div>
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
-            <!-- Your previous messages -->
-            <div class="message-container">
-                <div class="message me">
-                    Hey there!
-                </div>
-            </div>
-
-            <!-- Friend's previous messages -->
-            <div class="message-container">
-                <div class="message friend">
-                    Hi! How's it going?
-                </div>
-            </div>
+            <!-- Your existing chat messages here -->
         </div>
-        <!-- Message input area -->
         <div id="messageInputContainer">
-            <input type="text" id="messageInput" placeholder="Type your message...">
-            <button id="sendMessageButton">Send</button>
+            <!-- Your message input container here -->
         </div>
     </div>
 
-    <!-- JavaScript code with updated auto-reply messages and message sending -->
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
@@ -172,14 +157,19 @@
 
             // Check if the message is "password" and redirect if needed
             if (messageText.toLowerCase() === "password") {
-                window.location.href = "example.html";
+                window.location.href = "encryptor.html";
             }
         }
 
-        // Simulate an initial message from your friend
-        setTimeout(() => {
-            addMessage("Hey there! How's it going?", false);
-        }, 1000);
+        // Function to scroll to the bottom of the chat container
+        function scrollToBottom() {
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Add this code to scroll to the bottom when the page loads
+        window.addEventListener('load', scrollToBottom);
+
+        // Your existing JavaScript code (message sending and auto-reply) here
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -198,16 +188,18 @@
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 const autoReplyMessages = [
-                    "What?",
-                    "Dood, you're not making any sense???",
-                    "You good, dood?",
+                    "I'm sorry, I'm not quite following. Could you please clarify?",
+                    "I'm a bit lost here. Can you provide some context or explain what you mean?",
+                    "Hmm, I'm not sure I understand.",
+                    "Wait, I'm a bit confused. Can you backtrack a bit and explain your point?",
+                    "I think I missed something. Can you help me catch up?",
                 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
                 // Display the auto-reply in the chat as a friend's message
                 addMessage(randomAutoReply, false);
-            }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 to 10 seconds
+            }, Math.floor(Math.random() * 3000) + 1000); // Random delay between 1 to 4 seconds
         });
     </script>
 </body>
