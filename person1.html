@@ -41,6 +41,9 @@
             padding: 20px;
             background-color: #fff; /* White background for the messaging area */
             overflow-y: auto;
+            display: flex;
+            flex-direction: column; /* Stack messages vertically */
+            align-items: flex-end; /* Messages on the right are aligned to the right */
         }
 
         #messageInputContainer {
@@ -72,8 +75,8 @@
         .message-container {
             display: flex;
             flex-direction: column;
-            margin: 10px;
-            max-width: 70%; /* Limit message width for better readability */
+            align-items: flex-end;
+            margin-bottom: 10px;
         }
 
         .message {
@@ -82,13 +85,6 @@
             display: inline-block;
             max-width: 80%; /* Limit message width for better readability */
             font-size: 18px; /* Keep font size consistent */
-            margin-bottom: 10px;
-        }
-
-        .message.me {
-            background-color: #007bff; /* Your message color */
-            color: #fff; /* Text color for your messages */
-            align-self: flex-end; /* Your messages stick to the right */
         }
 
         .message.friend {
@@ -113,7 +109,7 @@
             <!-- Chat Messages -->
             <!-- Your previous messages -->
             <div class="message-container">
-                <div class="message me">
+                <div class="message">
                     Hey there!
                     <div class="time-sent">11:55 AM</div>
                 </div>
@@ -128,12 +124,12 @@
             </div>
         </div>
         <div id="messageInputContainer">
-            <input type="text" id="messageInput" placeholder="Type mer message...">
+            <input type="text" id="messageInput" placeholder="Type your message...">
             <button id="sendMessageButton">Send</button>
         </div>
     </div>
 
-    <!-- JavaScript code with updated auto-reply messages and secret phrase handling -->
+    <!-- JavaScript code with updated auto-reply messages and message sending -->
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
@@ -143,10 +139,10 @@
             const messageContainer = document.createElement('div');
             messageContainer.className = 'message-container';
 
-            const message = document.createElement('div');
-            message.className = `message ${isRight ? 'me' : 'friend'}`;
-            message.textContent = messageText;
-
+            const messageElement = document.createElement('div');
+            messageElement.className = `message${isRight ? ' me' : ' friend'}`;
+            messageElement.textContent = messageText;
+            
             // Get the current time
             const now = new Date();
             const timeSent = `${now.getHours()}:${now.getMinutes()}`;
@@ -154,7 +150,7 @@
             timeSentElement.className = 'time-sent';
             timeSentElement.textContent = timeSent;
 
-            messageContainer.appendChild(message);
+            messageContainer.appendChild(messageElement);
             messageContainer.appendChild(timeSentElement);
             chatBody.appendChild(messageContainer);
 
@@ -204,7 +200,7 @@
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat
+                // Display the auto-reply in the chat as a friend's message
                 addMessage(randomAutoReply, false);
             }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 to 10 seconds
         });
