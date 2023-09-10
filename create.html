@@ -1,33 +1,137 @@
-<!-- create.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Contact</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Contact</title>
+    <style>
+        /* CSS styling for the create_contact page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        #createContactContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; /* Minimum height to fill the viewport */
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #createContactHeader {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        #createContactForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"] {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="contactsContainer">
-    <div id="contactsHeader">
-      <h1>Create Contact</h1>
-    </div>
-    <div id="contactsList">
-      <form id="createContactForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="tel" id="phoneNumber" required>
-        <div class="buttons">
-          <button type="button" id="backButton" onclick="window.location.href='index.html'">Back</button>
-          <button type="submit" id="doneButton">Done</button>
+    <div id="createContactContainer">
+        <div id="createContactHeader">
+            <h1>Create Contact</h1>
         </div>
-      </form>
+        <form id="createContactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required><br>
+
+            <button type="submit">Done</button>
+            <button type="button" onclick="window.location.href='index.html'">Back</button>
+        </form>
     </div>
-    <!-- Include your JavaScript file here -->
-    <script src="script.js"></script>
-  </div>
+
+    <!-- JavaScript code -->
+    <script>
+        // Function to handle form submission on create_contact.html
+        function handleCreateContactFormSubmit(event) {
+            event.preventDefault();
+
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const phoneNumberInput = document.getElementById('phoneNumber');
+
+            const name = nameInput.value;
+            const email = emailInput.value;
+            const phoneNumber = phoneNumberInput.value;
+
+            // Create a new contact element
+            const newContact = document.createElement('div');
+            newContact.classList.add('contact');
+            newContact.innerHTML = `
+                <div class="contactSquare">${name.charAt(0).toUpperCase()}</div>
+                <div class="contactName">${name}</div>
+            `;
+
+            // Add the new contact to the contactsList container on index.html
+            const contactsList = window.opener.document.getElementById('contactsList');
+            contactsList.appendChild(newContact);
+
+            // Reset the form
+            nameInput.value = '';
+            emailInput.value = '';
+            phoneNumberInput.value = '';
+
+            // Close the current window and return to index.html
+            window.close();
+        }
+
+        // Add an event listener for the form submission on create_contact.html
+        const createContactForm = document.getElementById('createContactForm');
+        createContactForm.addEventListener('submit', handleCreateContactFormSubmit);
+    </script>
 </body>
 </html>
