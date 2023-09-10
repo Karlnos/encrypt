@@ -125,126 +125,31 @@
     <div id="chatContainer">
         <div id="chatHeader">
             <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
-            <div id="chatTitle">‎Special User</div>
+            <div id="chatTitle">Special User</div>
         </div>
         <div id="chatBody">
-            <!-- Chat Messages -->
+            <!-- Container for all chat messages -->
+            <div id="chatMessages">
+                <!-- Previous chat messages can go here if any -->
 
-    <!-- John's messages -->
-    <div class="message-container">
-        <div class="message friend">
-            Hey, how's your day going?
-        </div>
-        <div class="message me">
-            Hi John! It's been a productive day so far. How about you?
-        </div>
-    </div>
+                <!-- John's messages -->
+                <div class="message-container">
+                    <div class="message friend">
+                        Hey, how's your day going?
+                    </div>
+                    <div class="message me">
+                        Hi John! It's been a productive day so far. How about you?
+                    </div>
+                </div>
 
-    <div class="message-container">
-        <div class="message friend">
-            Not bad, just finished a good workout. 💪
-        </div>
-        <div class="message me">
-            That's impressive, John! I need to get back into a fitness routine.
-        </div>
-    </div>
+                <!-- More previous messages can be added here -->
 
-    <div class="message-container">
-        <div class="message friend">
-            You should! It does wonders for your energy levels. 😉
-        </div>
-        <div class="message me">
-            You're right! I'll start tomorrow. By the way, any movie recommendations?
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            Absolutely! Have you seen "Inception"?
-        </div>
-        <div class="message me">
-            Yes, that's a mind-bending classic! Anything similar?
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            "Interstellar" is a must-watch if you enjoyed "Inception." 🚀
-        </div>
-        <div class="message me">
-            Thanks, John! I'll add it to my watchlist. 🎬
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            Great choice! Let's chat about it after you watch it. 😊
-        </div>
-        <div class="message me">
-            Sounds like a plan, John! Looking forward to it. 👍
-        </div>
-    </div>
-
-    <div id="chatBody">
-    <!-- John's messages -->
-    <div class="message-container">
-        <div class="message friend">
-            Hey there! How's it going today?
-        </div>
-        <div class="message me">
-            Hi John! I'm doing well, thanks for asking. How about you?
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            Not too shabby, just another day in the grind. 😅
-        </div>
-        <div class="message me">
-            I feel you! Work can be quite a rollercoaster. Anything interesting happening?
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            Well, I stumbled upon this new coffee place downtown. The coffee is amazing! ☕️
-        </div>
-        <div class="message me">
-            That's great to hear! I'm always up for a good cup of coffee. What's it called?
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            It's called "Bean Delight." You should check it out sometime!
-        </div>
-        <div class="message me">
-            Thanks for the recommendation, John. I'll definitely give it a try. 😊
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            No problem, anytime! By the way, have you seen the latest superhero movie? 🎬
-        </div>
-        <div class="message me">
-            Not yet, but I've heard great things about it. Planning to watch it soon!
-        </div>
-    </div>
-
-    <div class="message-container">
-        <div class="message friend">
-            Awesome! Let's catch up after you watch it. I'm dying to discuss it! 😄
-        </div>
-        <div class="message me">
-            Deal, John! I'll let you know once I've seen it. Chat soon!
-        </div>
-    </div>
-</div>
-        <!-- Message input area -->
-        <div id="messageInputContainer">
-            <input type="text" id="messageInput" placeholder="Type your message...">
-            <button id="sendMessageButton">Send</button>
+            </div>
+            <!-- Message input area -->
+            <div id="messageInputContainer">
+                <input type="text" id="messageInput" placeholder="Type your message...">
+                <button id="sendMessageButton">Send</button>
+            </div>
         </div>
     </div>
 
@@ -252,6 +157,7 @@
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
+        const chatMessages = document.getElementById('chatMessages'); // Added container
 
         // Function to add a message to the chat
         function addMessage(messageText, isMe) {
@@ -263,7 +169,7 @@
             messageElement.textContent = messageText;
 
             messageContainer.appendChild(messageElement);
-            chatBody.appendChild(messageContainer);
+            chatMessages.appendChild(messageContainer); // Append messages to the chatMessages container
 
             // Scroll to the bottom of the chat container
             chatBody.scrollTop = chatBody.scrollHeight;
@@ -274,10 +180,16 @@
             }
         }
 
-        // Simulate an initial message from your friend
-        setTimeout(() => {
-            addMessage("Hey there! How's it going?", false);
-        }, 1000);
+        // Load previous chat messages (example)
+        const previousMessages = [
+            { text: "Hey there! How's it going?", isMe: false },
+            { text: "I'm doing well, thanks for asking. How about you?", isMe: true },
+            // Add more previous messages here
+        ];
+
+        previousMessages.forEach((message) => {
+            addMessage(message.text, message.isMe);
+        });
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
