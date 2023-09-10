@@ -40,7 +40,7 @@
             flex: 1;
             padding: 20px;
             background-color: #fff; /* White background for the messaging area */
-            overflow-y: scroll; /* Enable vertical scrolling */
+            overflow-y: auto;
         }
 
         #messageInputContainer {
@@ -99,108 +99,10 @@
             <h1>Messaging App</h1>
         </div>
         <div id="chatBody">
-            <!-- Fake conversation messages (preload) for Month 1 -->
-            <div class="message">
-    <div class="avatar">me</div>
-    <div>Hey John, how's it going?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Hi! I'm doing well, thanks. How about you?</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Not too bad. Have you been working on any interesting projects lately?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Yes, I've been working on a new web app. It's been challenging but fun.</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>That sounds exciting! What's it about?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>It's a task management tool with some unique features.</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Wow, that sounds useful. Can't wait to see it!</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Thanks! I'll keep you updated.</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>By the way, do you want to grab lunch next week?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Sure, I'd love to. How about Wednesday?</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Wednesday works for me. Let's meet at our favorite place at 12:30 PM.</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Great, see you then!</div>
-</div>
-<!-- Continued from the previous month -->
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Hey John, it's been a busy month! How have you been?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>I've been good, thanks! How about you?</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Busy too, but doing well. Any progress on your web app?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Yes, I've made some significant improvements. It's shaping up nicely.</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>That's awesome to hear! Can I take a look at the latest version?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Of course, I'll send you a link to the demo soon.</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Looking forward to it!</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>By the way, I heard there's a new movie coming out this weekend. Interested?</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Sure, I'd love to catch a movie. What's it called?</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>It's called "Adventure Seekers: The Lost Treasure." Looks promising!</div>
-</div>
-<div class="message">
-    <div class="avatar">me</div>
-    <div>Sounds exciting! Let's plan to watch it on Saturday.</div>
-</div>
-<div class="message">
-    <div class="avatar">J</div>
-    <div>Agreed, Saturday it is!</div>
-</div>
-<!-- Continue the conversation with more messages for the second month -->
-
+            <!-- Chat Messages -->
+        </div>
         <div id="messageInputContainer">
-            <input type="text" id="messageInput" placeholder="Type your message...">
+            <input type="text" id="messageInput" placeholder="Type mer message...">
             <button id="sendMessageButton">Send</button>
         </div>
     </div>
@@ -222,9 +124,6 @@
             textElement.textContent = messageText;
             message.appendChild(textElement);
             chatBody.appendChild(message);
-
-            // Scroll to the latest message (bottom of the chat)
-            chatBody.scrollTop = chatBody.scrollHeight;
         }
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
@@ -250,27 +149,27 @@
             setTimeout(() => {
                 // Get a random auto-reply message
                 const autoReplyMessages = [
-                    "I'm not sure I follow.",
-                    "Could you please explain that further?",
-                    "I'm finding it a bit perplexing.",
-                    "It's a tad baffling to me.",
-                    "I'm having trouble understanding.",
-                    "I'm somewhat puzzled by that.",
-                    "Could you shed some light on this?",
-                    "This is a bit mystifying.",
-                    "I'm a bit lost here.",
-                    "I'm having a hard time grasping this.",
-                    "This is leaving me a little bewildered.",
-                    "I'm finding it rather unclear.",
-                    "I'm not entirely certain about this.",
-                    "This is a touch complicated for me.",
-                    "I'm somewhat befuddled by this.",
-                    "I'm a little bit in the dark here.",
-                    "I could use some clarification.",
-                    "This is making me scratch my head.",
-                    "I'm feeling a bit disoriented.",
-                    "I'm struggling to make sense of this."
-                ];
+    "I'm not sure I follow.",
+    "Could you please explain that further?",
+    "I'm finding it a bit perplexing.",
+    "It's a tad baffling to me.",
+    "I'm having trouble understanding.",
+    "I'm somewhat puzzled by that.",
+    "Could you shed some light on this?",
+    "This is a bit mystifying.",
+    "I'm a bit lost here.",
+    "I'm having a hard time grasping this.",
+    "This is leaving me a little bewildered.",
+    "I'm finding it rather unclear.",
+    "I'm not entirely certain about this.",
+    "This is a touch complicated for me.",
+    "I'm somewhat befuddled by this.",
+    "I'm a little bit in the dark here.",
+    "I could use some clarification.",
+    "This is making me scratch my head.",
+    "I'm feeling a bit disoriented.",
+    "I'm struggling to make sense of this."
+];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
