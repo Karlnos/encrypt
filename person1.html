@@ -70,8 +70,8 @@
 
         .message-container {
             display: flex;
-            justify-content: flex-end; /* Move your messages to the right */
-            margin: 10px 20px;
+            align-items: center;
+            margin: 10px;
         }
 
         .message {
@@ -79,7 +79,7 @@
             color: #fff;
             padding: 10px;
             border-radius: 5px;
-            display: inline-block;
+            flex: 1;
         }
 
         .avatar {
@@ -90,10 +90,28 @@
             text-align: center;
             font-weight: bold;
             border-radius: 50%;
-            margin-left: 10px;
+            margin-right: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .right {
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        .left {
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .me .avatar {
+            order: 2; /* Place your avatar on the right side */
+        }
+
+        .friend .avatar {
+            order: 1; /* Place your friend's avatar on the left side */
         }
     </style>
 </head>
@@ -105,18 +123,14 @@
         <div id="chatBody">
             <!-- Chat Messages -->
             <!-- Your previous messages -->
-            <div class="message-container">
-                <div class="message">
-                    Hey there!
-                    <div class="avatar">me</div>
-                </div>
+            <div class="message-container right">
+                <div class="avatar me">me</div>
+                <div class="message">Hey there!</div>
             </div>
             <!-- Friend's previous messages -->
-            <div class="message-container">
-                <div class="message">
-                    Hi! How's it going?
-                    <div class="avatar">friend</div>
-                </div>
+            <div class="message-container left">
+                <div class="avatar friend">friend</div>
+                <div class="message">Hi! How's it going?</div>
             </div>
             <!-- Add more previous messages here -->
         </div>
@@ -134,24 +148,18 @@
         // Function to add a message with an avatar to the chat
         function addMessageWithAvatar(messageText, avatar, alignRight) {
             const messageContainer = document.createElement('div');
-            messageContainer.className = 'message-container';
-            
+            messageContainer.className = `message-container ${alignRight ? 'right' : 'left'}`;
+
+            const avatarElement = document.createElement('div');
+            avatarElement.className = `avatar ${avatar}`;
+            avatarElement.textContent = avatar;
+
             const message = document.createElement('div');
             message.className = 'message';
             message.textContent = messageText;
 
-            const avatarElement = document.createElement('div');
-            avatarElement.className = 'avatar';
-            avatarElement.textContent = avatar;
-            
+            messageContainer.appendChild(avatarElement);
             messageContainer.appendChild(message);
-            if (alignRight) {
-                messageContainer.style.justifyContent = 'flex-end';
-                messageContainer.appendChild(avatarElement);
-            } else {
-                messageContainer.appendChild(avatarElement);
-            }
-            
             chatBody.appendChild(messageContainer);
 
             // Scroll to the bottom of the chat container
@@ -160,6 +168,7 @@
 
         // Your previous messages
         addMessageWithAvatar("Hey there!", 'me', true);
+
         // Friend's previous messages
         addMessageWithAvatar("Hi! How's it going?", 'friend', false);
 
