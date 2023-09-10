@@ -34,6 +34,15 @@
             color: #fff;
             padding: 10px;
             text-align: center;
+            display: flex;
+            align-items: center; /* Center content vertically */
+        }
+
+        .back-button {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 10px;
         }
 
         #chatBody {
@@ -46,33 +55,7 @@
             align-items: left; /* Your messages on the right are aligned to the right */
         }
 
-        #messageInputContainer {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-top: 1px solid #ccc;
-        }
-
-        #messageInput {
-            flex: 1; /* Allow the input to take up available space */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-            font-size: 16px; /* Keep font size consistent */
-        }
-
-        #sendMessageButton {
-            width: 70px; /* Adjust the button width as needed */
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-          .message-container {
+        .message-container {
             display: flex;
             flex-direction: column;
             align-items: flex-start; /* Align all messages to the left */
@@ -101,21 +84,13 @@
             font-size: 26px; /* Adjust font size for smaller size */
             position: relative; /* Enable relative positioning for the message container */
         }
-
-        .time-sent {
-            font-size: 12px;
-            margin-top: 5px;
-            text-align: right;
-            position: absolute; /* Position the time at the bottom right corner */
-            bottom: 5px; /* Add spacing from the bottom */
-            right: 10px; /* Add spacing from the right */
-        }
     </style>
 </head>
 <body>
     <div id="chatContainer">
         <div id="chatHeader">
-            <h1>Person</h1>
+            <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
+            <h1>Messaging App</h1>
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
@@ -138,60 +113,62 @@
             <button id="sendMessageButton">Send</button>
         </div>
     </div>
-<!-- JavaScript code with updated auto-reply messages and message sending -->
-<script>
-    const chatBody = document.getElementById('chatBody');
-    const messageInput = document.getElementById('messageInput');
 
-    // Function to add a message to the chat
-    function addMessage(messageText, isMe) {
-        const messageContainer = document.createElement('div');
-        messageContainer.className = 'message-container';
+    <!-- JavaScript code with updated auto-reply messages and message sending -->
+    <script>
+        const chatBody = document.getElementById('chatBody');
+        const messageInput = document.getElementById('messageInput');
 
-        const messageElement = document.createElement('div');
-        messageElement.className = `message${isMe ? ' me' : ' friend'}`;
-        messageElement.textContent = messageText;
+        // Function to add a message to the chat
+        function addMessage(messageText, isMe) {
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message-container';
 
-        messageContainer.appendChild(messageElement);
-        chatBody.appendChild(messageContainer);
+            const messageElement = document.createElement('div');
+            messageElement.className = `message${isMe ? ' me' : ' friend'}`;
+            messageElement.textContent = messageText;
 
-        // Scroll to the bottom of the chat container
-        chatBody.scrollTop = chatBody.scrollHeight;
-    }
+            messageContainer.appendChild(messageElement);
+            chatBody.appendChild(messageContainer);
 
-    // Simulate an initial message from your friend
-    setTimeout(() => {
-        addMessage("Hey there! How's it going?", false);
-    }, 1000);
-
-    document.getElementById('sendMessageButton').addEventListener('click', () => {
-        // Get the message text from the input field
-        const messageText = messageInput.value;
-
-        if (messageText.trim() === '') {
-            return; // Do not send empty messages
+            // Scroll to the bottom of the chat container
+            chatBody.scrollTop = chatBody.scrollHeight;
         }
 
-        // Clear the input field
-        messageInput.value = '';
-
-        // Display your message in the chat
-        addMessage(messageText, true);
-
-        // Simulate an auto-reply after a short delay
+        // Simulate an initial message from your friend
         setTimeout(() => {
-            // Get a random auto-reply message
-            const autoReplyMessages = [
-                "What?",
-                "Dood, your not making any sense???",
-                "You good dood?",
-            ];
-            const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
-            const randomAutoReply = autoReplyMessages[randomIndex];
+            addMessage("Hey there! How's it going?", false);
+        }, 1000);
 
-            // Display the auto-reply in the chat as a friend's message
-            addMessage(randomAutoReply, false);
-        }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 to 10 seconds
-    });
-</script>
+        document.getElementById('sendMessageButton').addEventListener('click', () => {
+            // Get the message text from the input field
+            const messageText = messageInput.value;
+
+            if (messageText.trim() === '') {
+                return; // Do not send empty messages
+            }
+
+            // Clear the input field
+            messageInput.value = '';
+
+            // Display your message in the chat
+            addMessage(messageText, true);
+
+            // Simulate an auto-reply after a short delay
+            setTimeout(() => {
+                // Get a random auto-reply message
+                const autoReplyMessages = [
+                    "What?",
+                    "Dood, your not making any sense???",
+                    "You good dood?",
+                ];
+                const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
+                const randomAutoReply = autoReplyMessages[randomIndex];
+
+                // Display the auto-reply in the chat as a friend's message
+                addMessage(randomAutoReply, false);
+            }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 to 10 seconds
+        });
+    </script>
+</body>
 </html>
