@@ -70,6 +70,7 @@
 
         .message-container {
             display: flex;
+            flex-direction: column;
             align-items: flex-start; /* Align messages to the top */
             margin: 10px;
         }
@@ -102,11 +103,13 @@
         .right {
             justify-content: flex-end;
             text-align: right;
+            align-items: flex-end; /* Align unread/read to the bottom */
         }
 
         .left {
             justify-content: flex-start;
             text-align: left;
+            align-items: flex-start; /* Align unread/read to the top */
         }
 
         .me .avatar {
@@ -126,7 +129,7 @@
         }
 
         .unread {
-            color: red; /* Change the color to red for unread messages */
+            color: black; /* Change the color to black for unread messages */
         }
     </style>
 </head>
@@ -141,20 +144,21 @@
             <div class="message-container right">
                 <div class="message me">
                     <div class="avatar me">me</div>
-                    <span class="unread">Unread</span>
-                    <div class="time-sent">12:00 PM</div>
+                    <span class="time-sent">12:00 PM</span>
                     Hey there!
+                    <span class="unread">Unread</span>
                 </div>
             </div>
+
             <!-- Friend's previous messages -->
             <div class="message-container left">
                 <div class="message friend">
                     <div class="avatar friend">friend</div>
+                    <span class="time-sent">11:59 AM</span>
                     Hi! How's it going?
-                    <div class="time-sent">12:05 PM</div>
+                    <span class="read">Read</span>
                 </div>
             </div>
-            <!-- Add more previous messages here -->
         </div>
         <div id="messageInputContainer">
             <input type="text" id="messageInput" placeholder="Type mer message...">
@@ -162,7 +166,7 @@
         </div>
     </div>
 
-    <!-- JavaScript code with updated auto-reply messages, automatic scrolling, and time delay -->
+    <!-- JavaScript code with updated auto-reply messages and secret phrase handling -->
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
@@ -239,6 +243,9 @@
         // Friend's previous messages
         addMessageWithAvatar("Hi! How's it going?", 'friend', false);
 
+        // Mark a new message as "unread"
+        let isNewMessageUnread = true;
+
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
             const messageText = messageInput.value;
@@ -259,10 +266,21 @@
             const timeSentElement = document.createElement('div');
             timeSentElement.className = 'time-sent';
             timeSentElement.textContent = timeSentStr;
-            chatBody.lastChild.appendChild(timeSentElement);
 
-            // Simulate an auto-reply
-            simulateAutoReply();
+            // Add "Unread" status for new messages
+            if (isNewMessageUnread) {
+                const unreadElement = document.createElement('span');
+                unreadElement.className = 'unread';
+                unreadElement.textContent = 'Unread';
+                isNewMessageUnread = false;
+                timeSentElement.appendChild(unreadElement);
+            }
+
+            // Add the time sent below your message
+            chatBody.lastElementChild.appendChild(timeSentElement);
+
+            // Simulate an auto-reply after sending your message
+            simulateAutoReply(messageText);
         });
     </script>
 </body>
