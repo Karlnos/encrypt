@@ -3,98 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Encryptor/Decryptor</title>
+    <title>Password Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .password-sections {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .password-box {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+            width: 250px;
+        }
+
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .password-purpose {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Text Encryptor/Decryptor</h1>
-    <textarea id="inputText" placeholder="Enter text to encrypt/decrypt"></textarea>
-    <button id="encryptButton">Encrypt</button>
-    <button id="decryptButton">Decrypt</button>
-    <div id="outputText">
-        <div id="encryptedOutput">
-            <span id="encryptedText"></span>
-            <button id="copyEncrypted">Copy</button>
-        </div>
-        <div id="decryptedOutput">
-            <span id="decryptedText"></span>
-            <button id="copyDecrypted">Copy</button>
-        </div>
+    <h1>Password Manager</h1>
+    <div class="password-sections">
+        <!-- Password sections will be dynamically generated here -->
     </div>
-
     <script>
-        // XOR encryption function with a simple secret key
-        function xorEncrypt(text, key) {
-            let encryptedText = '';
-            for (let i = 0; i < text.length; i++) {
-                encryptedText += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
-            }
-            return encryptedText;
+        const passwordSections = document.querySelector('.password-sections');
+
+        function createPasswordSection(savedPurpose = '', savedPassword = '') {
+            const passwordBox = document.createElement('div');
+            passwordBox.className = 'password-box';
+
+            const purposeInput = document.createElement('input');
+            purposeInput.type = 'text';
+            purposeInput.placeholder = 'Purpose (e.g., Gmail)';
+            purposeInput.className = 'password-purpose';
+            purposeInput.value = savedPurpose;
+
+            const passwordInput = document.createElement('input');
+            passwordInput.type = 'text';
+            passwordInput.placeholder = 'Enter Password';
+            passwordInput.value = savedPassword;
+
+            const copyButton = document.createElement('button');
+            copyButton.className = 'copy-button';
+            copyButton.innerText = 'Copy';
+
+            copyButton.addEventListener('click', () => {
+                passwordInput.select();
+                document.execCommand('copy');
+                alert('Password copied to clipboard!');
+            });
+
+            // Listen for changes in the input fields and save them to localStorage
+            purposeInput.addEventListener('input', () => {
+                const key = 'purpose' + (Array.from(passwordSections.children).indexOf(passwordBox) + 1);
+                localStorage.setItem(key, purposeInput.value);
+            });
+
+            passwordInput.addEventListener('input', () => {
+                const key = 'password' + (Array.from(passwordSections.children).indexOf(passwordBox) + 1);
+                localStorage.setItem(key, passwordInput.value);
+            });
+
+            passwordBox.appendChild(purposeInput);
+            passwordBox.appendChild(passwordInput);
+            passwordBox.appendChild(copyButton);
+
+            passwordSections.appendChild(passwordBox);
         }
 
-        // XOR decryption function with the same secret key
-        function xorDecrypt(encryptedText, key) {
-            return xorEncrypt(encryptedText, key);
-        }
-
-        function textToBase64(text) {
-            return btoa(text);
-        }
-
-        function base64ToText(base64Text) {
-            return atob(base64Text);
-        }
-
-        document.getElementById('encryptButton').addEventListener('click', () => {
-            const inputText = document.getElementById('inputText').value;
-            // Use a secret key (you can replace it with your own)
-            const secretKey = 'MySecretKey';
-            
-            // Encrypt using XOR encryption with the secret key
-            const encryptedText = xorEncrypt(inputText, secretKey);
-            
-            // Then encode the result in Base64
-            const base64Encoded = textToBase64(encryptedText);
-            
-            const encryptedOutput = document.getElementById('encryptedText');
-            encryptedOutput.textContent = base64Encoded;
-        });
-
-        document.getElementById('decryptButton').addEventListener('click', () => {
-            const base64Encoded = document.getElementById('inputText').value;
-            try {
-                // Decode the Base64
-                const encryptedText = base64ToText(base64Encoded);
-                // Use the same secret key for decryption
-                const secretKey = 'MySecretKey';
-                // Decrypt using XOR decryption with the secret key
-                const decryptedText = xorDecrypt(encryptedText, secretKey);
-                const decryptedOutput = document.getElementById('decryptedText');
-                decryptedOutput.textContent = decryptedText;
-            } catch (error) {
-                alert('Invalid input. Please make sure the input is a valid Base64-encoded string.');
-            }
-        });
-
-        document.getElementById('copyEncrypted').addEventListener('click', () => {
-            const encryptedOutput = document.getElementById('encryptedText');
-            const textToCopy = encryptedOutput.textContent;
-            copyTextToClipboard(textToCopy);
-        });
-
-        document.getElementById('copyDecrypted').addEventListener('click', () => {
-            const decryptedOutput = document.getElementById('decryptedText');
-            const textToCopy = decryptedOutput.textContent;
-            copyTextToClipboard(textToCopy);
-        });
-
-        function copyTextToClipboard(text) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            alert('Text copied to clipboard');
+        // Load saved data from localStorage and create password sections
+        for (let i = 1; i <= 15; i++) {
+            const purposeKey = 'purpose' + i;
+            const passwordKey = 'password' + i;
+            const savedPurpose = localStorage.getItem(purposeKey) || '';
+            const savedPassword = localStorage.getItem(passwordKey) || '';
+            createPasswordSection(savedPurpose, savedPassword);
         }
     </script>
 </body>
