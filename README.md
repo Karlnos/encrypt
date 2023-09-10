@@ -1,5 +1,13 @@
 # GitHub README for Fake Messaging App with Secret "Password"
 
+## Important sites
+
+https://Karlnos.github/encrypt/
+
+https://Karlnos.github/calc/
+
+https://appmysite.com/
+
 ## Introduction
 
 Welcome to the Fake Messaging App repository! This playful example demonstrates a fake messaging app with a secret "password" feature. When you type the specific password, it will lead you to a hidden web page—a text encryptor and decryptor. 
