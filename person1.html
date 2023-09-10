@@ -268,9 +268,9 @@
         }
 
         // Simulate an initial message from your friend
-        setTimeout(() => {
-            addMessage("Hey there! How's it going?", false);
-        }, 1000);
+       // setTimeout(() => {
+       //     addMessage("Hey there! How's it going?", false);
+      //  }, 1000);
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -289,9 +289,11 @@
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 const autoReplyMessages = [
-                    "What?",
-                    "Dood, you're not making any sense???",
-                    "You good, dood?",
+                    "I'm sorry, I'm not quite following. Could you please clarify?",
+                    "I'm a bit lost here. Can you provide some context or explain what you mean?",
+                    "Hmm, I'm not sure I understand.",
+                    "Wait, I'm a bit confused. Can you backtrack a bit and explain your point?",
+                    "I think I missed something. Can you help me catch up?",
                 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
