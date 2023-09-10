@@ -78,16 +78,19 @@
         .message {
             background-color: #007bff;
             color: #fff;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 15px;
             display: inline-block;
-            position: relative;
-            clear: both;
         }
 
         .message.me {
             background-color: #007bff; /* Your message color */
             align-self: flex-end;
+        }
+
+        .message.friend {
+            background-color: #ddd; /* Friend's message color */
+            align-self: flex-start;
         }
 
         .time-sent {
@@ -114,7 +117,7 @@
 
             <!-- Friend's previous messages -->
             <div class="message-container">
-                <div class="message">
+                <div class="message friend">
                     Hi! How's it going?
                     <div class="time-sent">11:59 AM</div>
                 </div>
@@ -136,7 +139,7 @@
             const messageContainer = document.createElement('div');
             messageContainer.className = `message-container ${isRight ? 'right' : 'left'}`;
             const message = document.createElement('div');
-            message.className = `message ${isRight ? 'me' : ''}`;
+            message.className = `message ${isRight ? 'me' : 'friend'}`;
             message.appendChild(document.createTextNode(messageText));
             
             // Get the current time
@@ -173,7 +176,7 @@
             // Display your message in the chat
             addMessage(messageText, true);
 
-            // Simulate an auto-reply after a short delay
+            // Simulate an auto-reply after a random delay
             setTimeout(() => {
                 // Get a random auto-reply message
                 const autoReplyMessages = [
@@ -203,7 +206,7 @@
 
                 // Display the auto-reply in the chat
                 addMessage(randomAutoReply, false);
-            }, Math.floor(Math.random() * 10000) + 1000); // Random delay between 1 to 10 seconds
+            }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 to 10 seconds
         });
     </script>
 </body>
