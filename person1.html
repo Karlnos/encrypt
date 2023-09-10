@@ -68,14 +68,18 @@
             cursor: pointer;
         }
 
+        .message-container {
+            display: flex;
+            justify-content: flex-end; /* Move your messages to the right */
+            margin: 10px 20px;
+        }
+
         .message {
             background-color: #007bff;
             color: #fff;
             padding: 10px;
-            margin: 10px 20px;
             border-radius: 5px;
-            display: flex;
-            align-items: center;
+            display: inline-block;
         }
 
         .avatar {
@@ -86,7 +90,7 @@
             text-align: center;
             font-weight: bold;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-left: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -100,11 +104,21 @@
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
-            <div class="message">
-                <div class="avatar">me</div>
-                <div>Hey there!</div>
+            <!-- Your previous messages -->
+            <div class="message-container">
+                <div class="message">
+                    Hey there!
+                    <div class="avatar">me</div>
+                </div>
             </div>
-            <!-- Add more preset messages here -->
+            <!-- Friend's previous messages -->
+            <div class="message-container">
+                <div class="message">
+                    Hi! How's it going?
+                    <div class="avatar">friend</div>
+                </div>
+            </div>
+            <!-- Add more previous messages here -->
         </div>
         <div id="messageInputContainer">
             <input type="text" id="messageInput" placeholder="Type mer message...">
@@ -118,33 +132,36 @@
         const messageInput = document.getElementById('messageInput');
 
         // Function to add a message with an avatar to the chat
-        function addMessageWithAvatar(messageText, avatar) {
+        function addMessageWithAvatar(messageText, avatar, alignRight) {
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message-container';
+            
             const message = document.createElement('div');
             message.className = 'message';
+            message.textContent = messageText;
+
             const avatarElement = document.createElement('div');
             avatarElement.className = 'avatar';
             avatarElement.textContent = avatar;
-            message.appendChild(avatarElement);
-            const textElement = document.createElement('div');
-            textElement.textContent = messageText;
-            message.appendChild(textElement);
-            chatBody.appendChild(message);
+            
+            messageContainer.appendChild(message);
+            if (alignRight) {
+                messageContainer.style.justifyContent = 'flex-end';
+                messageContainer.appendChild(avatarElement);
+            } else {
+                messageContainer.appendChild(avatarElement);
+            }
+            
+            chatBody.appendChild(messageContainer);
 
             // Scroll to the bottom of the chat container
             chatBody.scrollTop = chatBody.scrollHeight;
         }
 
-        // Preset messages
-        const presetMessages = [
-            { text: "Hey there!", avatar: "me" },
-            { text: "Hi! How's it going?", avatar: "friend" },
-            // Add more preset messages here
-        ];
-
-        // Display preset messages
-        presetMessages.forEach((message) => {
-            addMessageWithAvatar(message.text, message.avatar);
-        });
+        // Your previous messages
+        addMessageWithAvatar("Hey there!", 'me', true);
+        // Friend's previous messages
+        addMessageWithAvatar("Hi! How's it going?", 'friend', false);
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -156,23 +173,23 @@
 
             // Clear the input field
             messageInput.value = '';
-            // Display the user's message in the chat with avatar "me"
-            addMessageWithAvatar(messageText, 'me');
+
+            // Display your message in the chat with your avatar on the right
+            addMessageWithAvatar(messageText, 'me', true);
 
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 // Get a random auto-reply message
                 const autoReplyMessages = [
-                    "I'm not sure I follow. Can you explain?",
+                    "I'm not sure I follow.",
                     "Could you please explain that further?",
-                    "I'm finding it a bit perplexing.",
                     // Add more auto-reply messages here
                 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat with avatar "friend"
-                addMessageWithAvatar(randomAutoReply, 'friend');
+                // Display the auto-reply in the chat with your friend's avatar on the left
+                addMessageWithAvatar(randomAutoReply, 'friend', false);
             }, 1000); // Simulate a delay of 1 second
         });
     </script>
