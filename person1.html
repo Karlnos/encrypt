@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messaging App</title>
+    <title>John Doe</title>
     <style>
         /* CSS styling for the messaging app interface */
         body {
@@ -81,6 +81,7 @@
             padding: 15px;
             border-radius: 15px;
             display: inline-block;
+            max-width: 80%; /* Limit message width for better readability */
         }
 
         .message.me {
@@ -89,7 +90,8 @@
         }
 
         .message.friend {
-            background-color: #ddd; /* Friend's message color */
+            background-color: #666; /* Friend's message color */
+            color: #fff; /* Text color for friend's messages */
             align-self: flex-start;
         }
 
@@ -139,7 +141,7 @@
             const messageContainer = document.createElement('div');
             messageContainer.className = `message-container ${isRight ? 'right' : 'left'}`;
             const message = document.createElement('div');
-            message.className = `message ${isRight ? 'me' : 'friend'}`;
+            message.className = `message ${isRight ? 'me' : 'J'}`;
             message.appendChild(document.createTextNode(messageText));
             
             // Get the current time
@@ -173,6 +175,7 @@
 
             // Clear the input field
             messageInput.value = '';
+
             // Display your message in the chat
             addMessage(messageText, true);
 
