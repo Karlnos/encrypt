@@ -75,15 +75,13 @@
          .message-container {
             display: flex;
             flex-direction: column;
+            align-items: flex-start; /* Align all messages to the left */
             margin-bottom: 10px;
-            max-width: 70%; /* Add a maximum width for the message containers */
-            overflow: hidden; /* Hide overflow content for rounded corners */
         }
 
         .message.friend {
             background-color: #eee; /* Friend's message color */
             color: #333; /* Text color for friend's messages */
-            align-self: flex-start; /* Friend's messages stick to the left */
             text-align: left; /* Align text to the left within the message container */
             border-radius: 15px; /* Round the corners of friend's messages */
         }
