@@ -72,40 +72,28 @@
             display: flex;
             flex-direction: column;
             margin: 10px;
+            max-width: 70%; /* Limit message width for better readability */
         }
 
         .message {
             background-color: #007bff;
             color: #fff;
             padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            border-radius: 10px;
+            display: inline-block;
+            position: relative;
+            clear: both;
         }
 
         .message.me {
             background-color: #007bff; /* Your message color */
-            align-items: flex-end;
-        }
-
-        .avatar {
-            width: 30px;
-            height: 30px;
-            background-color: #fff;
-            color: #007bff;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 50%;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            align-self: flex-end;
         }
 
         .time-sent {
             font-size: 12px;
             margin-top: 5px;
+            text-align: right;
         }
     </style>
 </head>
@@ -117,18 +105,16 @@
         <div id="chatBody">
             <!-- Chat Messages -->
             <!-- Your previous messages -->
-            <div class="message-container right">
+            <div class="message-container">
                 <div class="message me">
-                    <div class="avatar me">me</div>
                     Hey there!
                     <div class="time-sent">11:55 AM</div>
                 </div>
             </div>
 
             <!-- Friend's previous messages -->
-            <div class="message-container left">
-                <div class="message friend">
-                    <div class="avatar friend">friend</div>
+            <div class="message-container">
+                <div class="message">
                     Hi! How's it going?
                     <div class="time-sent">11:59 AM</div>
                 </div>
@@ -145,16 +131,12 @@
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
 
-        // Function to add a message with an avatar to the chat
-        function addMessageWithAvatar(messageText, avatar, isRight) {
+        // Function to add a message to the chat
+        function addMessage(messageText, isRight) {
             const messageContainer = document.createElement('div');
             messageContainer.className = `message-container ${isRight ? 'right' : 'left'}`;
             const message = document.createElement('div');
-            message.className = `message ${isRight ? 'me' : 'friend'}`;
-            const avatarElement = document.createElement('div');
-            avatarElement.className = 'avatar';
-            avatarElement.textContent = avatar;
-            message.appendChild(avatarElement);
+            message.className = `message ${isRight ? 'me' : ''}`;
             message.appendChild(document.createTextNode(messageText));
             
             // Get the current time
@@ -164,8 +146,14 @@
             timeSentElement.className = 'time-sent';
             timeSentElement.textContent = timeSent;
 
-            message.appendChild(timeSentElement);
-            messageContainer.appendChild(message);
+            if (isRight) {
+                message.appendChild(timeSentElement);
+                messageContainer.appendChild(message);
+            } else {
+                messageContainer.appendChild(message);
+                messageContainer.appendChild(timeSentElement);
+            }
+
             chatBody.appendChild(messageContainer);
 
             // Scroll to the bottom of the chat container
@@ -182,8 +170,8 @@
 
             // Clear the input field
             messageInput.value = '';
-            // Display your message in the chat with avatar "me"
-            addMessageWithAvatar(messageText, 'me', true);
+            // Display your message in the chat
+            addMessage(messageText, true);
 
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
@@ -213,8 +201,8 @@
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat with avatar "friend"
-                addMessageWithAvatar(randomAutoReply, 'friend', false);
+                // Display the auto-reply in the chat
+                addMessage(randomAutoReply, false);
             }, Math.floor(Math.random() * 10000) + 1000); // Random delay between 1 to 10 seconds
         });
     </script>
