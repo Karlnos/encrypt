@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Doe</title>
+    <title>Messaging App</title>
     <style>
         /* CSS styling for the messaging app interface */
         body {
@@ -56,6 +56,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-right: 10px;
+            font-size: 16px; /* Increased font size */
         }
 
         #sendMessageButton {
@@ -78,10 +79,11 @@
         .message {
             background-color: #007bff;
             color: #fff;
-            padding: 15px;
+            padding: 20px; /* Increased message padding */
             border-radius: 15px;
             display: inline-block;
             max-width: 80%; /* Limit message width for better readability */
+            font-size: 18px; /* Increased font size */
         }
 
         .message.me {
@@ -141,26 +143,20 @@
             const messageContainer = document.createElement('div');
             messageContainer.className = `message-container ${isRight ? 'right' : 'left'}`;
             const message = document.createElement('div');
-            message.className = `message ${isRight ? 'me' : 'J'}`;
+            message.className = `message ${isRight ? 'me' : 'friend'}`;
             message.appendChild(document.createTextNode(messageText));
             
             // Get the current time
             const now = new Date();
-            const timeSent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const timeSent = `${now.getHours()}:${now.getMinutes()}`;
             const timeSentElement = document.createElement('div');
             timeSentElement.className = 'time-sent';
             timeSentElement.textContent = timeSent;
 
-            if (isRight) {
-                message.appendChild(timeSentElement);
-                messageContainer.appendChild(message);
-            } else {
-                messageContainer.appendChild(message);
-                messageContainer.appendChild(timeSentElement);
-            }
-
+            messageContainer.appendChild(message);
+            messageContainer.appendChild(timeSentElement);
             chatBody.appendChild(messageContainer);
-
+            
             // Scroll to the bottom of the chat container
             chatBody.scrollTop = chatBody.scrollHeight;
         }
