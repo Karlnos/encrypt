@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Name</title>
+    <title>Messaging App</title>
     <style>
         /* CSS styling for the messaging app interface */
         body {
@@ -35,6 +35,7 @@
             padding: 10px;
             text-align: center;
             display: flex;
+            justify-content: space-between; /* Center content horizontally and space between */
             align-items: center; /* Center content vertically */
         }
 
@@ -42,7 +43,13 @@
             color: #fff;
             font-size: 24px;
             cursor: pointer;
-            margin-right: 10px;
+            margin-right: 10px; /* Add right margin to move the button to the right */
+        }
+
+        #chatTitle {
+            flex: 1; /* Allow the title to take up available space */
+            text-align: center; /* Center the text horizontally */
+            font-size: 24px; /* Adjust font size as needed */
         }
 
         #chatBody {
@@ -112,22 +119,13 @@
             font-size: 26px; /* Adjust font size for smaller size */
             position: relative; /* Enable relative positioning for the message container */
         }
-
-        .time-sent {
-            font-size: 12px;
-            margin-top: 5px;
-            text-align: right;
-            position: absolute; /* Position the time at the bottom right corner */
-            bottom: 5px; /* Add spacing from the bottom */
-            right: 10px; /* Add spacing from the right */
-        }
     </style>
 </head>
 <body>
     <div id="chatContainer">
         <div id="chatHeader">
             <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
-            <h1>‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎Special User</h1>
+            <div id="chatTitle">‎Special User</div>
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
@@ -199,7 +197,6 @@
 
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
-                // Get a random auto-reply message
                 const autoReplyMessages = [
                     "What?",
                     "Dood, you're not making any sense???",
