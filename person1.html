@@ -84,6 +84,11 @@
             display: inline-block;
             max-width: 80%; /* Limit message width for better readability */
             font-size: 18px; /* Increased font size */
+        }
+
+        .message.me {
+            background-color: #007bff; /* Your message color */
+            color: #fff; /* Text color for your messages */
             align-self: flex-end; /* Your messages stick to the right */
         }
 
@@ -137,11 +142,12 @@
         // Function to add a message to the chat
         function addMessage(messageText, isRight) {
             const messageContainer = document.createElement('div');
-            messageContainer.className = `message-container ${isRight ? 'right' : 'left'}`;
+            messageContainer.className = 'message-container';
+
             const message = document.createElement('div');
             message.className = `message ${isRight ? 'me' : 'friend'}`;
-            message.appendChild(document.createTextNode(messageText));
-            
+            message.textContent = messageText;
+
             // Get the current time
             const now = new Date();
             const timeSent = `${now.getHours()}:${now.getMinutes()}`;
