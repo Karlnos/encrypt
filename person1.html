@@ -80,6 +80,7 @@
             padding: 10px;
             border-radius: 5px;
             flex: 1;
+            position: relative; /* Add relative positioning to the message */
         }
 
         .avatar {
@@ -94,6 +95,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: absolute; /* Add absolute positioning to the avatar */
         }
 
         .right {
@@ -108,10 +110,12 @@
 
         .me .avatar {
             order: 2; /* Place your avatar on the right side */
+            right: -40px; /* Adjust the distance of your avatar from the right edge */
         }
 
         .friend .avatar {
             order: 1; /* Place your friend's avatar on the left side */
+            left: -40px; /* Adjust the distance of your friend's avatar from the left edge */
         }
     </style>
 </head>
@@ -124,13 +128,17 @@
             <!-- Chat Messages -->
             <!-- Your previous messages -->
             <div class="message-container right">
-                <div class="avatar me">me</div>
-                <div class="message">Hey there!</div>
+                <div class="message me">
+                    <div class="avatar me">me</div>
+                    Hey there!
+                </div>
             </div>
             <!-- Friend's previous messages -->
             <div class="message-container left">
-                <div class="avatar friend">friend</div>
-                <div class="message">Hi! How's it going?</div>
+                <div class="message friend">
+                    <div class="avatar friend">friend</div>
+                    Hi! How's it going?
+                </div>
             </div>
             <!-- Add more previous messages here -->
         </div>
@@ -150,15 +158,16 @@
             const messageContainer = document.createElement('div');
             messageContainer.className = `message-container ${alignRight ? 'right' : 'left'}`;
 
+            const message = document.createElement('div');
+            message.className = `message ${avatar}`;
+            
             const avatarElement = document.createElement('div');
             avatarElement.className = `avatar ${avatar}`;
             avatarElement.textContent = avatar;
 
-            const message = document.createElement('div');
-            message.className = 'message';
             message.textContent = messageText;
+            message.appendChild(avatarElement);
 
-            messageContainer.appendChild(avatarElement);
             messageContainer.appendChild(message);
             chatBody.appendChild(messageContainer);
 
