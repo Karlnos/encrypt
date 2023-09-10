@@ -148,11 +148,28 @@
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 // Get a random auto-reply message
-                const autoReplyMessages = [
-                    "I'm not sure what me mean.",
-                    "Can me clarify that?",
-                    "It's a bit confusing.",
-                ];
+                const aliceConfusedResponses = [
+    "I'm a bit confused. Could you explain further?",
+    "Wait, what? I'm not getting it.",
+    "Huh? Can you clarify that for me?",
+    "I'm drawing a blank here. Help me out!",
+    "This is puzzling. Can you elaborate?",
+    "I'm having trouble following. Please rephrase.",
+    "I'm scratching my head. What do you mean?",
+    "I must be missing something. Please share more details.",
+    "I'm feeling a bit disoriented. Can you clarify?",
+    "I'm not entirely sure I understand. Can you simplify?",
+    "I'm somewhat perplexed. Can you shed some light?",
+    "This is leaving me a little baffled. Explain?",
+    "I'm finding it a bit mystifying. What's the deal?",
+    "I'm somewhat lost here. Can you help me navigate?",
+    "I'm having a hard time grasping this. Please clarify.",
+    "I could use some clarification here. What's the confusion?",
+    "I'm a little bit in the dark. What's the context?",
+    "I'm genuinely puzzled. Can you break it down for me?",
+    "I'm struggling to make sense of this. More details, please?",
+    "I'm not entirely certain about this. Can you provide context?"
+];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
