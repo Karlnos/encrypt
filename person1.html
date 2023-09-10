@@ -99,10 +99,23 @@
             <h1>Messaging App</h1>
         </div>
         <div id="chatBody">
-            <!-- Chat Messages -->
+            <!-- Fake conversation messages (preload) -->
+            <div class="message">
+                <div class="avatar">J</div>
+                <div>Hello! How can I help you today?</div>
+            </div>
+            <div class="message">
+                <div class="avatar">me</div>
+                <div>Hi there! I have a question about your services.</div>
+            </div>
+            <div class="message">
+                <div class="avatar">J</div>
+                <div>Sure, I'd be happy to assist. What's your question?</div>
+            </div>
+            <!-- ... You can add more fake messages here ... -->
         </div>
         <div id="messageInputContainer">
-            <input type="text" id="messageInput" placeholder="Type mer message...">
+            <input type="text" id="messageInput" placeholder="Type your message...">
             <button id="sendMessageButton">Send</button>
         </div>
     </div>
@@ -149,27 +162,27 @@
             setTimeout(() => {
                 // Get a random auto-reply message
                 const autoReplyMessages = [
-    "I'm not sure I follow.",
-    "Could you please explain that further?",
-    "I'm finding it a bit perplexing.",
-    "It's a tad baffling to me.",
-    "I'm having trouble understanding.",
-    "I'm somewhat puzzled by that.",
-    "Could you shed some light on this?",
-    "This is a bit mystifying.",
-    "I'm a bit lost here.",
-    "I'm having a hard time grasping this.",
-    "This is leaving me a little bewildered.",
-    "I'm finding it rather unclear.",
-    "I'm not entirely certain about this.",
-    "This is a touch complicated for me.",
-    "I'm somewhat befuddled by this.",
-    "I'm a little bit in the dark here.",
-    "I could use some clarification.",
-    "This is making me scratch my head.",
-    "I'm feeling a bit disoriented.",
-    "I'm struggling to make sense of this."
-];
+                    "I'm not sure I follow.",
+                    "Could you please explain that further?",
+                    "I'm finding it a bit perplexing.",
+                    "It's a tad baffling to me.",
+                    "I'm having trouble understanding.",
+                    "I'm somewhat puzzled by that.",
+                    "Could you shed some light on this?",
+                    "This is a bit mystifying.",
+                    "I'm a bit lost here.",
+                    "I'm having a hard time grasping this.",
+                    "This is leaving me a little bewildered.",
+                    "I'm finding it rather unclear.",
+                    "I'm not entirely certain about this.",
+                    "This is a touch complicated for me.",
+                    "I'm somewhat befuddled by this.",
+                    "I'm a little bit in the dark here.",
+                    "I could use some clarification.",
+                    "This is making me scratch my head.",
+                    "I'm feeling a bit disoriented.",
+                    "I'm struggling to make sense of this."
+                ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
