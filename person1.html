@@ -100,6 +100,11 @@
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
+            <div class="message">
+                <div class="avatar">me</div>
+                <div>Hey there!</div>
+            </div>
+            <!-- Add more preset messages here -->
         </div>
         <div id="messageInputContainer">
             <input type="text" id="messageInput" placeholder="Type mer message...">
@@ -107,7 +112,7 @@
         </div>
     </div>
 
-    <!-- JavaScript code with updated auto-reply messages and secret phrase handling -->
+    <!-- JavaScript code with updated auto-reply messages and automatic scrolling -->
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
@@ -124,7 +129,22 @@
             textElement.textContent = messageText;
             message.appendChild(textElement);
             chatBody.appendChild(message);
+
+            // Scroll to the bottom of the chat container
+            chatBody.scrollTop = chatBody.scrollHeight;
         }
+
+        // Preset messages
+        const presetMessages = [
+            { text: "Hey there!", avatar: "me" },
+            { text: "Hi! How's it going?", avatar: "friend" },
+            // Add more preset messages here
+        ];
+
+        // Display preset messages
+        presetMessages.forEach((message) => {
+            addMessageWithAvatar(message.text, message.avatar);
+        });
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -132,12 +152,6 @@
 
             if (messageText.trim() === '') {
                 return; // Do not send empty messages
-            }
-
-            if (messageText.trim() === 'password') {
-                // Redirect to encryptor.html if the message is "password"
-                window.location.href = 'encryptor.html';
-                return;
             }
 
             // Clear the input field
@@ -149,16 +163,17 @@
             setTimeout(() => {
                 // Get a random auto-reply message
                 const autoReplyMessages = [
-    "I'm not sure I follow.",
-    "Could you please explain that further?",
-    "I'm finding it a bit perplexing.",
-];
+                    "I'm not sure I follow. Can you explain?",
+                    "Could you please explain that further?",
+                    "I'm finding it a bit perplexing.",
+                    // Add more auto-reply messages here
+                ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat with avatar "USER"
-                addMessageWithAvatar(randomAutoReply, 'USER');
-            }, 3000); // Simulate a delay of 1 second
+                // Display the auto-reply in the chat with avatar "friend"
+                addMessageWithAvatar(randomAutoReply, 'friend');
+            }, 1000); // Simulate a delay of 1 second
         });
     </script>
 </body>
