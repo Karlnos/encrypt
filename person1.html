@@ -87,6 +87,7 @@
             padding: 18px 20px; /* Adjust padding for smaller size */
             max-width: 78%; /* Limit message width */
             font-size: 26px; /* Adjust font size for smaller size */
+            position: relative; /* Enable relative positioning for the message container */
         }
 
         .message.me {
@@ -98,11 +99,16 @@
             padding: 18px 20px; /* Adjust padding for smaller size */
             max-width: 78%; /* Limit message width */
             font-size: 26px; /* Adjust font size for smaller size */
+            position: relative; /* Enable relative positioning for the message container */
         }
+
         .time-sent {
             font-size: 12px;
             margin-top: 5px;
             text-align: right;
+            position: absolute; /* Position the time at the bottom right corner */
+            bottom: 5px; /* Add spacing from the bottom */
+            right: 10px; /* Add spacing from the right */
         }
     </style>
 </head>
