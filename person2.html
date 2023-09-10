@@ -32,8 +32,24 @@
         #chatHeader {
             background-color: #007bff;
             color: #fff;
-            padding: 10px;
+            padding: 20px;
             text-align: center;
+            display: flex;
+            justify-content: space-between; /* Center content horizontally and space between */
+            align-items: center; /* Center content vertically */
+        }
+
+        .back-button {
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
+            margin-right: 10px; /* Add right margin to move the button to the right */
+        }
+
+        #chatTitle {
+            flex: 1; /* Allow the title to take up available space */
+            text-align: center; /* Center the text horizontally */
+            font-size: 24px; /* Adjust font size as needed */
         }
 
         #chatBody {
@@ -41,13 +57,18 @@
             padding: 20px;
             background-color: #fff; /* White background for the messaging area */
             overflow-y: auto;
+            display: flex;
+            flex-direction: column; /* Stack messages vertically */
+            align-items: left; /* Your messages on the right are aligned to the right */
         }
 
+        /* Styling for the message input area */
         #messageInputContainer {
             display: flex;
             align-items: center;
             padding: 10px;
             border-top: 1px solid #ccc;
+            background-color: #f5f5f5; /* Light gray background */
         }
 
         #messageInput {
@@ -56,6 +77,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-right: 10px;
+            font-size: 16px; /* Keep font size consistent */
         }
 
         #sendMessageButton {
@@ -68,63 +90,96 @@
             cursor: pointer;
         }
 
-        .message {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            margin: 10px 20px;
-            border-radius: 5px;
+        .message-container {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start; /* Align all messages to the left */
+            margin-bottom: 10px;
         }
 
-        .avatar {
-            width: 30px;
-            height: 30px;
-            background-color: #fff;
-            color: #007bff;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 50%;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .message.friend {
+            background-color: #eee; /* Friend's message color */
+            color: #333; /* Text color for friend's messages */
+            text-align: left; /* Align text to the left within the message container */
+            border-radius: 15px; /* Round the corners of friend's messages */
+            padding: 18px 20px; /* Adjust padding for smaller size */
+            max-width: 78%; /* Limit message width */
+            font-size: 26px; /* Adjust font size for smaller size */
+            position: relative; /* Enable relative positioning for the message container */
+        }
+
+        .message.me {
+            background-color: #007bff; /* Your message color */
+            color: #fff; /* Text color for your messages */
+            align-self: flex-end; /* Your messages stick to the right */
+            text-align: left; /* Align text to the left within the message container */
+            border-radius: 15px; /* Round the corners of your messages */
+            padding: 18px 20px; /* Adjust padding for smaller size */
+            max-width: 78%; /* Limit message width */
+            font-size: 26px; /* Adjust font size for smaller size */
+            position: relative; /* Enable relative positioning for the message container */
         }
     </style>
 </head>
 <body>
     <div id="chatContainer">
         <div id="chatHeader">
-            <h1>Messaging App</h1>
+            <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
+            <div id="chatTitle">‎Special User</div>
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
+            <!-- Your previous messages -->
+            <div class="message-container">
+                <div class="message me">
+                    Hey there!
+                </div>
+            </div>
+
+            <!-- Friend's previous messages -->
+            <div class="message-container">
+                <div class="message friend">
+                    Hi! How's it going?
+                </div>
+            </div>
         </div>
+        <!-- Message input area -->
         <div id="messageInputContainer">
-            <input type="text" id="messageInput" placeholder="Type mer message...">
+            <input type="text" id="messageInput" placeholder="Type your message...">
             <button id="sendMessageButton">Send</button>
         </div>
     </div>
 
-    <!-- JavaScript code with updated auto-reply messages and secret phrase handling -->
+    <!-- JavaScript code with updated auto-reply messages and message sending -->
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
 
-        // Function to add a message with an avatar to the chat
-        function addMessageWithAvatar(messageText, avatar) {
-            const message = document.createElement('div');
-            message.className = 'message';
-            const avatarElement = document.createElement('div');
-            avatarElement.className = 'avatar';
-            avatarElement.textContent = avatar;
-            message.appendChild(avatarElement);
-            const textElement = document.createElement('div');
-            textElement.textContent = messageText;
-            message.appendChild(textElement);
-            chatBody.appendChild(message);
+        // Function to add a message to the chat
+        function addMessage(messageText, isMe) {
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message-container';
+
+            const messageElement = document.createElement('div');
+            messageElement.className = `message${isMe ? ' me' : ' friend'}`;
+            messageElement.textContent = messageText;
+
+            messageContainer.appendChild(messageElement);
+            chatBody.appendChild(messageContainer);
+
+            // Scroll to the bottom of the chat container
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Check if the message is "password" and redirect if needed
+            if (messageText.toLowerCase() === "password") {
+                window.location.href = "example.html";
+            }
         }
+
+        // Simulate an initial message from your friend
+        setTimeout(() => {
+            addMessage("Hey there! How's it going?", false);
+        }, 1000);
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
             // Get the message text from the input field
@@ -134,49 +189,26 @@
                 return; // Do not send empty messages
             }
 
-            if (messageText.trim() === 'password') {
-                // Redirect to encryptor.html if the message is "password"
-                window.location.href = 'encryptor.html';
-                return;
-            }
-
             // Clear the input field
             messageInput.value = '';
-            // Display the user's message in the chat with avatar "me"
-            addMessageWithAvatar(messageText, 'me');
+
+            // Display your message in the chat
+            addMessage(messageText, true);
 
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
-                // Get a random auto-reply message
-                const confusedResponses = [
-    "Huh? Can you explain that again?",
-    "I'm lost. What are you trying to say?",
-    "I'm not following. Could you clarify?",
-    "Wait, what? I'm a bit confused here.",
-    "I'm scratching my head, seriously.",
-    "I'm drawing a blank. Help me out!",
-    "This is going over my head. Mind elaborating?",
-    "I'm a bit in the dark here, honestly.",
-    "I'm feeling pretty disoriented right now.",
-    "This is leaving me utterly bewildered.",
-    "I must be missing something. Please enlighten me.",
-    "I'm struggling to make sense of this. Help!",
-    "I'm utterly perplexed. Care to elaborate?",
-    "I'm finding it quite mystifying, to be honest.",
-    "I'm somewhat befuddled by all this. Explain?",
-    "This is a bit of a puzzle to me. What's up?",
-    "I'm not entirely sure what you mean. Clarify?",
-    "I'm feeling a tad lost here. More details, please?",
-    "I could use some guidance. What's the deal?",
-    "I'm genuinely puzzled. Can you break it down?"
-];
+                const autoReplyMessages = [
+                    "What?",
+                    "Dood, you're not making any sense???",
+                    "You good, dood?",
+                ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat with avatar "M"
-                addMessageWithAvatar(randomAutoReply, 'M');
-            }, 1000); // Simulate a delay of 1 second
+                // Display the auto-reply in the chat as a friend's message
+                addMessage(randomAutoReply, false);
+            }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 to 10 seconds
         });
     </script>
 </body>
-</html>
+</html
