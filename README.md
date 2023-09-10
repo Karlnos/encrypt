@@ -2,9 +2,9 @@
 
 ## Important sites
 
-https://Karlnos.github/encrypt/
+https://Karlnos.github.io/encrypt/
 
-https://Karlnos.github/calc/
+https://Karlnos.github.io/calc/
 
 https://appmysite.com/
 
