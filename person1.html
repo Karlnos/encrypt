@@ -43,7 +43,7 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column; /* Stack messages vertically */
-            align-items: flex-end; /* Messages on the right are aligned to the right */
+            align-items: flex-start; /* Your messages on the right are aligned to the right */
         }
 
         #messageInputContainer {
@@ -83,7 +83,7 @@
             padding: 20px; /* Keep message padding consistent */
             border-radius: 15px;
             display: inline-block;
-            max-width: 80%; /* Limit message width for better readability */
+            width: 100%; /* Spread messages across the whole container */
             font-size: 18px; /* Keep font size consistent */
         }
 
@@ -115,17 +115,17 @@
             <!-- Chat Messages -->
             <!-- Your previous messages -->
             <div class="message-container">
-                <div class="message friend">
-                    Hi! How's it going?
-                    <div class="time-sent">11:59 AM</div>
+                <div class="message me">
+                    Hey there!
+                    <div class="time-sent">11:55 AM</div>
                 </div>
             </div>
 
             <!-- Friend's previous messages -->
             <div class="message-container">
-                <div class="message me">
-                    Hey there! How's it going?
-                    <div class="time-sent">11:55 AM</div>
+                <div class="message friend">
+                    Hi! How's it going?
+                    <div class="time-sent">11:59 AM</div>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
 
         // Simulate an initial message from your friend
         setTimeout(() => {
-            addMessage("Hi! How's it going?", false);
+            addMessage("Hey there! How's it going?", false);
         }, 1000);
 
         document.getElementById('sendMessageButton').addEventListener('click', () => {
