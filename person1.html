@@ -70,7 +70,7 @@
 
         .message-container {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Align messages to the top */
             margin: 10px;
         }
 
@@ -96,6 +96,7 @@
             align-items: center;
             justify-content: center;
             position: absolute; /* Add absolute positioning to the avatar */
+            border: 2px solid black; /* Add a black border to the avatar */
         }
 
         .right {
@@ -117,6 +118,16 @@
             order: 1; /* Place your friend's avatar on the left side */
             left: -40px; /* Adjust the distance of your friend's avatar from the left edge */
         }
+
+        .time-sent {
+            font-size: 12px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .unread {
+            color: red; /* Change the color to red for unread messages */
+        }
     </style>
 </head>
 <body>
@@ -130,6 +141,8 @@
             <div class="message-container right">
                 <div class="message me">
                     <div class="avatar me">me</div>
+                    <span class="unread">Unread</span>
+                    <div class="time-sent">12:00 PM</div>
                     Hey there!
                 </div>
             </div>
@@ -138,6 +151,7 @@
                 <div class="message friend">
                     <div class="avatar friend">friend</div>
                     Hi! How's it going?
+                    <div class="time-sent">12:05 PM</div>
                 </div>
             </div>
             <!-- Add more previous messages here -->
@@ -148,31 +162,75 @@
         </div>
     </div>
 
-    <!-- JavaScript code with updated auto-reply messages and automatic scrolling -->
+    <!-- JavaScript code with updated auto-reply messages, automatic scrolling, and time delay -->
     <script>
         const chatBody = document.getElementById('chatBody');
         const messageInput = document.getElementById('messageInput');
 
         // Function to add a message with an avatar to the chat
-        function addMessageWithAvatar(messageText, avatar, alignRight) {
+        function addMessageWithAvatar(messageText, avatar, isRight) {
             const messageContainer = document.createElement('div');
-            messageContainer.className = `message-container ${alignRight ? 'right' : 'left'}`;
-
+            messageContainer.className = `message-container ${isRight ? 'right' : 'left'}`;
             const message = document.createElement('div');
-            message.className = `message ${avatar}`;
-            
+            message.className = `message ${isRight ? 'me' : 'friend'}`;
             const avatarElement = document.createElement('div');
-            avatarElement.className = `avatar ${avatar}`;
+            avatarElement.className = 'avatar';
             avatarElement.textContent = avatar;
-
-            message.textContent = messageText;
             message.appendChild(avatarElement);
 
+            if (!isRight) {
+                const unreadElement = document.createElement('span');
+                unreadElement.className = 'unread';
+                unreadElement.textContent = 'Unread';
+                message.appendChild(unreadElement);
+            }
+
+            const timeSentElement = document.createElement('div');
+            timeSentElement.className = 'time-sent';
+            message.appendChild(timeSentElement);
+
+            const textElement = document.createElement('div');
+            textElement.textContent = messageText;
+            message.appendChild(textElement);
             messageContainer.appendChild(message);
             chatBody.appendChild(messageContainer);
 
             // Scroll to the bottom of the chat container
             chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Simulate an auto-reply after a short delay
+        function simulateAutoReply(message) {
+            setTimeout(() => {
+                // Get a random auto-reply message
+                const autoReplyMessages = [
+                    "I'm not sure I follow.",
+                    "Could you please explain that further?",
+                    "I'm finding it a bit perplexing.",
+                    "It's a tad baffling to me.",
+                    "I'm having trouble understanding.",
+                    "I'm somewhat puzzled by that.",
+                    "Could you shed some light on this?",
+                    "This is a bit mystifying.",
+                    "I'm a bit lost here.",
+                    "I'm having a hard time grasping this.",
+                    "This is leaving me a little bewildered.",
+                    "I'm finding it rather unclear.",
+                    "I'm not entirely certain about this.",
+                    "This is a touch complicated for me.",
+                    "I'm somewhat befuddled by this.",
+                    "I'm a little bit in the dark here.",
+                    "I could use some clarification.",
+                    "This is making me scratch my head.",
+                    "I'm feeling a bit disoriented.",
+                    "I'm struggling to make sense of this.",
+                ];
+                const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
+                const randomAutoReply = autoReplyMessages[randomIndex];
+
+                // Display the auto-reply in the chat with avatar "J"
+                addMessageWithAvatar(randomAutoReply, 'J', false);
+            }, Math.floor(Math.random() * 9000) + 1000); // Random delay between 1 and 10 seconds
         }
 
         // Your previous messages
@@ -195,20 +253,16 @@
             // Display your message in the chat with your avatar on the right
             addMessageWithAvatar(messageText, 'me', true);
 
-            // Simulate an auto-reply after a short delay
-            setTimeout(() => {
-                // Get a random auto-reply message
-                const autoReplyMessages = [
-                    "I'm not sure I follow.",
-                    "Could you please explain that further?",
-                    // Add more auto-reply messages here
-                ];
-                const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
-                const randomAutoReply = autoReplyMessages[randomIndex];
+            // Get the current time for your sent message
+            const timeSent = new Date();
+            const timeSentStr = `${timeSent.getHours()}:${timeSent.getMinutes()}`;
+            const timeSentElement = document.createElement('div');
+            timeSentElement.className = 'time-sent';
+            timeSentElement.textContent = timeSentStr;
+            chatBody.lastChild.appendChild(timeSentElement);
 
-                // Display the auto-reply in the chat with your friend's avatar on the left
-                addMessageWithAvatar(randomAutoReply, 'friend', false);
-            }, 1000); // Simulate a delay of 1 second
+            // Simulate an auto-reply
+            simulateAutoReply();
         });
     </script>
 </body>
