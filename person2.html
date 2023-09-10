@@ -125,14 +125,65 @@
     <div id="chatContainer">
         <div id="chatHeader">
             <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
-            <div id="chatTitle">‎Mary Smith</div>
+            <div id="chatTitle">‎John Doe</div>
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
-            <!-- Your existing chat messages here -->
+            
+<!-- Mary's messages -->
+<div class="message-container">
+    <div class="message friend">
+        Hey there! How's it going?
+    </div>
+</div>
+
+<div class="message-container">
+    <div class="message friend">
+        I'm so excited about the weekend! Any fun plans?
+    </div>
+</div>
+
+<div class="message-container">
+    <div class="message friend">
+        I tried a new restaurant yesterday, and it was fantastic! 😄
+    </div>
+</div>
+
+<div class="message-container">
+    <div class="message friend">
+        By the way, have you seen the latest movie? It's a must-watch!
+    </div>
+</div>
+
+<div class="message-container">
+    <div class="message friend">
+        I'm thinking of starting a book club. Interested?
+    </div>
+</div>
+
+<div class="message-container">
+    <div class="message friend">
+        I just adopted a rescue dog. Meet Fluffy! 🐾
+    </div>
+</div>
+
+<div class="message-container">
+    <div class="message friend">
+        Do you have any vacation plans coming up? Let's chat more!
+    </div>
+</div>
+
+<div class="message-container">
+    <div class="message friend">
+        Have a fantastic day! 😊
+    </div>
+</div>
+
         </div>
         <div id="messageInputContainer">
             <!-- Your message input container here -->
+            <input type="text" id="messageInput" placeholder="Type a message...">
+            <button id="sendMessageButton">Send</button>
         </div>
     </div>
 
@@ -157,7 +208,7 @@
 
             // Check if the message is "password" and redirect if needed
             if (messageText.toLowerCase() === "password") {
-                window.location.href = "encryptor.html";
+                window.location.href = "example.html";
             }
         }
 
@@ -188,11 +239,11 @@
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 const autoReplyMessages = [
-                    "I'm sorry, I'm not quite following. Could you please clarify?",
-                    "I'm a bit lost here. Can you provide some context or explain what you mean?",
-                    "Hmm, I'm not sure I understand.",
-                    "Wait, I'm a bit confused. Can you backtrack a bit and explain your point?",
-                    "I think I missed something. Can you help me catch up?",
+                    "Huh? Can you repeat that?",
+                    "I'm not following.",
+                    "I'm lost here.",
+                    "Say that again, please?",
+                    "I'm drawing a blank.",
                 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
