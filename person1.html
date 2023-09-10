@@ -72,39 +72,31 @@
             cursor: pointer;
         }
 
-        .message-container {
-            display: flex;
-            flex-direction: column;
-            align-items: right; /* Your messages on the right are aligned to the right */
-            margin-bottom: 10px;
-        }
-
-       .message-container {
+         .message-container {
             display: flex;
             flex-direction: column;
             align-items: flex-start; /* Friend's messages on the left are aligned to the left */
             margin-bottom: 10px;
             max-width: 70%; /* Add a maximum width for the message containers */
-            border-radius: 15px; /* Round the corners of the message containers */
             overflow: hidden; /* Hide overflow content for rounded corners */
         }
-        
+
         .message.friend {
             background-color: #eee; /* Friend's message color */
             color: #333; /* Text color for friend's messages */
             align-self: flex-start; /* Friend's messages stick to the left */
             text-align: left; /* Align text to the left within the message container */
+            border-radius: 15px; /* Round the corners of friend's messages */
         }
-        
+
         .message.me {
             background-color: #007bff; /* Your message color */
             color: #fff; /* Text color for your messages */
             align-self: flex-end; /* Your messages stick to the right */
             text-align: left; /* Align text to the left within the message container */
             border-radius: 15px; /* Round the corners of your messages */
-            margin-left: auto; /* Push your messages to the right and outside the container */
+            padding: 15px; /* Increase padding for larger squares */
         }
-
         .time-sent {
             font-size: 12px;
             margin-top: 5px;
