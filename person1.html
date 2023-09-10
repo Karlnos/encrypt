@@ -85,7 +85,7 @@
         }
 
         .message.me {
-            background-color: #4caf50; /* Your message color */
+            background-color: #007bff; /* Your message color */
             align-items: flex-end;
         }
 
@@ -107,18 +107,6 @@
             font-size: 12px;
             margin-top: 5px;
         }
-
-        .read {
-            font-size: 12px;
-            color: black;
-            margin-top: 5px;
-        }
-        
-        .unread {
-            font-size: 12px;
-            color: black;
-            margin-top: 5px;
-        }
     </style>
 </head>
 <body>
@@ -133,7 +121,6 @@
                 <div class="message me">
                     <div class="avatar me">me</div>
                     Hey there!
-                    <div class="read">Read</div>
                     <div class="time-sent">11:55 AM</div>
                 </div>
             </div>
@@ -143,7 +130,6 @@
                 <div class="message friend">
                     <div class="avatar friend">friend</div>
                     Hi! How's it going?
-                    <div class="read">Read</div>
                     <div class="time-sent">11:59 AM</div>
                 </div>
             </div>
@@ -169,24 +155,16 @@
             avatarElement.className = 'avatar';
             avatarElement.textContent = avatar;
             message.appendChild(avatarElement);
-
-            if (!isRight) {
-                const unreadElement = document.createElement('div');
-                unreadElement.className = 'unread';
-                unreadElement.textContent = 'Unread';
-                message.appendChild(unreadElement);
-            }
-
+            message.appendChild(document.createTextNode(messageText));
+            
+            // Get the current time
+            const now = new Date();
+            const timeSent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const timeSentElement = document.createElement('div');
             timeSentElement.className = 'time-sent';
-            const now = new Date();
-            const timeSent = `${now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}`;
             timeSentElement.textContent = timeSent;
-            message.appendChild(timeSentElement);
 
-            const textElement = document.createElement('div');
-            textElement.textContent = messageText;
-            message.appendChild(textElement);
+            message.appendChild(timeSentElement);
             messageContainer.appendChild(message);
             chatBody.appendChild(messageContainer);
 
@@ -194,8 +172,20 @@
             chatBody.scrollTop = chatBody.scrollHeight;
         }
 
-        // Simulate an auto-reply after a short delay
-        function simulateAutoReply(message) {
+        document.getElementById('sendMessageButton').addEventListener('click', () => {
+            // Get the message text from the input field
+            const messageText = messageInput.value;
+
+            if (messageText.trim() === '') {
+                return; // Do not send empty messages
+            }
+
+            // Clear the input field
+            messageInput.value = '';
+            // Display your message in the chat with avatar "me"
+            addMessageWithAvatar(messageText, 'me', true);
+
+            // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 // Get a random auto-reply message
                 const autoReplyMessages = [
@@ -223,26 +213,9 @@
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
 
-                // Display the auto-reply in the chat with avatar "J"
-                addMessageWithAvatar(randomAutoReply, 'J', false);
+                // Display the auto-reply in the chat with avatar "friend"
+                addMessageWithAvatar(randomAutoReply, 'friend', false);
             }, Math.floor(Math.random() * 10000) + 1000); // Random delay between 1 to 10 seconds
-        }
-
-        document.getElementById('sendMessageButton').addEventListener('click', () => {
-            // Get the message text from the input field
-            const messageText = messageInput.value;
-
-            if (messageText.trim() === '') {
-                return; // Do not send empty messages
-            }
-
-            // Clear the input field
-            messageInput.value = '';
-            // Display your message in the chat with avatar "me"
-            addMessageWithAvatar(messageText, 'me', true);
-
-            // Simulate an auto-reply after sending your message
-            simulateAutoReply(messageText);
         });
     </script>
 </body>
