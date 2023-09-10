@@ -175,44 +175,8 @@
 
                 // Display the auto-reply in the chat with avatar "J"
                 addMessageWithAvatar(randomAutoReply, 'J');
-            }, 1000); // Simulate a delay of 1 second
+            }, 3000); // Simulate a delay of 1 second
         });
     </script>
-
-<script>
-    const chatBody = document.getElementById('chatBody');
-
-    // Function to add a message with an avatar to the chat
-    function addMessageWithAvatar(messageText, avatar) {
-        const message = document.createElement('div');
-        message.className = 'message';
-        const avatarElement = document.createElement('div');
-        avatarElement.className = 'avatar';
-        avatarElement.textContent = avatar;
-        message.appendChild(avatarElement);
-        const textElement = document.createElement('div');
-        textElement.textContent = messageText;
-        message.appendChild(textElement);
-        chatBody.appendChild(message);
-
-        // Scroll to the bottom of the chat container
-        chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    // Fake previous messages
-    const fakeMessages = [
-        { text: "Hi there!", avatar: "J" },
-        { text: "Hey! How's it going?", avatar: "me" },
-        { text: "Not too bad. What about you?", avatar: "J" },
-        { text: "I'm doing great, thanks!", avatar: "me" },
-        // Add more fake messages here
-    ];
-
-    // Display fake previous messages
-    fakeMessages.forEach((message) => {
-        addMessageWithAvatar(message.text, message.avatar);
-    });
-</script>
-    
 </body>
 </html>
