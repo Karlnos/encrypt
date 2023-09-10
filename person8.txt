@@ -125,133 +125,124 @@
     <div id="chatContainer">
         <div id="chatHeader">
             <div class="back-button" onclick="window.location.href='index.html'">&#60;</div>
-            <div id="chatTitle">‎Brian Miller</div>
+            <div id="chatTitle">‎John Doe</div>
         </div>
         <div id="chatBody">
             <!-- Chat Messages -->
             
-<!-- Brian's messages -->
-<div class="message-container">
-    <div class="message friend">
-        Hey, you! How's it hanging?
-    </div>
-</div>
+            <!-- Your messages -->
+            <div class="message-container">
+                <div class="message me">
+                    Hey John!
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        Hey Brian! It's going well. How about you? What made your day interesting?
-    </div>
-</div>
+            <!-- John's first message -->
+            <div class="message-container">
+                <div class="message friend">
+                    Your hiking trip sounds amazing! I wish I could join you.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message friend">
-        So, I tried a new restaurant, and let's just say I didn't order the right thing. 🤣
-    </div>
-</div>
+            <!-- Your response -->
+            <div class="message-container">
+                <div class="message me">
+                    Hey John!
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        Haha, we all have those moments! What did you order, and what would you recommend from that place?
-    </div>
-</div>
+            <!-- Your message -->
+            <div class="message-container">
+                <div class="message me">
+                    I'm doing well, thanks! Just wrapped up a busy week of coding.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message friend">
-        Movie night? I'm in! I'll bring the popcorn and dad jokes.
-    </div>
-</div>
+            <!-- John's response -->
+            <div class="message-container">
+                <div class="message friend">
+                    No big gaming adventures recently, but I did try out a new game last weekend.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        Great! I'll choose the movie. Any genre preferences or should I surprise you?
-    </div>
-</div>
+            <!-- Your question -->
+            <div class="message-container">
+                <div class="message me">
+                    Have you been on any gaming adventures lately?
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message friend">
-        A book club, you say? Will there be snacks involved?
-    </div>
-</div>
+            <!-- John's response -->
+            <div class="message-container">
+                <div class="message friend">
+                    I miss our gaming sessions too. Let's definitely plan a game night soon.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        Absolutely, Brian! We'll have a snack bar with all the bookworm favorites. What kind of books are you into?
-    </div>
-</div>
+            <!-- Your suggestion -->
+            <div class="message-container">
+                <div class="message me">
+                    It's been a while since we caught up. Let's plan to game together soon!
+                </div>
+            </div>
 
-<!-- Additional messages -->
-<div class="message-container">
-    <div class="message friend">
-        I adopted a rescue dog named Captain Fluffywhiskers. He's a true superhero! 🦸‍♂️🐶
-    </div>
-</div>
+            <!-- Your question -->
+            <div class="message-container">
+                <div class="message me">
+                    Did you see that new gaming release? I heard it's great.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        Captain Fluffywhiskers sounds like a real character! What's his superpower, making people smile?
-    </div>
-</div>
+            <!-- John's response -->
+            <div class="message-container">
+                <div class="message friend">
+                    Yes, I heard about that game release! Let's play it together.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message friend">
-        He's got that superpower in spades! Also, he can fetch a ball like a pro.
-    </div>
-</div>
+            <!-- Your coding project question -->
+            <div class="message-container">
+                <div class="message me">
+                    I'm thinking of starting a new coding project. Any language recommendations?
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        That's adorable! Pets bring so much joy. Any fun or quirky stories about Captain Fluffywhiskers?
-    </div>
-</div>
+            <!-- John's coding project suggestion -->
+            <div class="message-container">
+                <div class="message friend">
+                    For your coding project, consider trying out Python. It's versatile and beginner-friendly.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message friend">
-        Oh, tons! I'll share them over a virtual coffee sometime.
-    </div>
-</div>
+            <!-- Your pet introduction -->
+            <div class="message-container">
+                <div class="message me">
+                    Just got a new pet! Meet my adorable puppy, Max.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        Count me in for virtual coffee and dog stories, Brian! Sounds like a blast.
-    </div>
-</div>
+            <!-- John's comment on your pet -->
+            <div class="message-container">
+                <div class="message friend">
+                    Max is adorable! Can't wait to hear more about him.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message friend">
-        I'm on a constant vacation from reality. Life's an adventure!
-    </div>
-</div>
+            <!-- Your birthday plans -->
+            <div class="message-container">
+                <div class="message me">
+                    It's my birthday next week. Any plans for celebrating?
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message me">
-        I love your perspective, Brian! What's the latest adventure you've embarked on?
-    </div>
-</div>
+            <!-- John's response about your birthday -->
+            <div class="message-container">
+                <div class="message friend">
+                    Happy early birthday! Let's plan a virtual celebration for you.
+                </div>
+            </div>
 
-<div class="message-container">
-    <div class="message friend">
-        I decided to take up kayaking recently. Exploring the waterways is my new escape.
-    </div>
-</div>
-
-<div class="message-container">
-    <div class="message me">
-        Kayaking sounds serene and adventurous! Do you have a favorite spot to paddle?
-    </div>
-</div>
-
-<div class="message-container">
-    <div class="message friend">
-        There's this hidden lake I discovered recently. It feels like a slice of paradise.
-    </div>
-</div>
-
-<div class="message-container">
-    <div class="message me">
-        That sounds incredible, Brian! I might need you to share that secret spot someday.
-    </div>
-</div>
-
+            <!-- Existing messages end here -->
 
         </div>
         <div id="messageInputContainer">
@@ -313,11 +304,11 @@
             // Simulate an auto-reply after a short delay
             setTimeout(() => {
                 const autoReplyMessages = [
-"I'm a bit befuddled.",
-"It's not clicking for me.",F
-"I'm in the dark on this one.",
-"I'm struggling to comprehend.",
-"I'm having trouble connecting the dots.",
+                    "I'm sorry, I'm not quite following. Could you please clarify?",
+                    "I'm a bit lost here. Can you provide some context or explain what you mean?",
+                    "Hmm, I'm not sure I understand.",
+                    "Wait, I'm a bit confused. Can you backtrack a bit and explain your point?",
+                    "I think I missed something. Can you help me catch up?",
                 ];
                 const randomIndex = Math.floor(Math.random() * autoReplyMessages.length);
                 const randomAutoReply = autoReplyMessages[randomIndex];
